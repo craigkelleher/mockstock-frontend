@@ -3,7 +3,6 @@ import { Route, Routes } from 'react-router-dom'
 import { useEffect } from 'react'
 import Home from './Components/Home'
 import Navbar from './Components/Navbar'
-import AllRecords from './Components/AllRecords'
 import About from './Components/About'
 import EditModal from './Components/EditModal'
 import { useDispatch, useSelector } from 'react-redux'
@@ -42,16 +41,17 @@ const App = () => {
 
   return (
     <div className="appContainer">
-      {/* <Navbar /> */}
+      <Navbar />
       {showMsg && <div className='updateMsgContainer'><h3>{msgText}</h3></div>}
       {showModal && <EditModal />}
       {showNewRecordModal && <NewRecordModal />}
       <Routes>
-     ``   <Route path='/' element={<Home />} />
-        <Route path='/all-records' element={<AllRecords />} />
+        <Route path='/' element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/portfolio" element={<PortfolioPage />} />
+        <Route path='/about' element={<About />} />
       </Routes>
+      <Footer/>
     </div>
   );
 }

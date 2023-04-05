@@ -1,6 +1,5 @@
 * {
   box-sizing: border-box;
-  margin: 0;
   font-family: Georgia, sans-serif;
 }
 
@@ -13,7 +12,6 @@ body {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  padding: 1rem 2rem;
 }
 
 button:hover {
@@ -165,24 +163,26 @@ button:hover {
   color: #eee;
   user-select: none;
   text-shadow: 1px 1px 2px black;
+  margin-left: 2.5rem;
 }
 
 .navbarContainer {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  height: 5rem;
   background-color: #214460;
   border-radius: 5px;
-  box-shadow: 5px 5px 5px #111;
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
-  align-items: center;
-  padding: .5rem 1rem;
-  font-size: 1.5rem;
+  box-shadow: 4px 4px 4px #111;
+  gap: 1.5rem;
+  padding: 0rem 1.4rem;
+  font-size: 1.25rem;
   flex-wrap: wrap;
 }
 
 .linksContainer {
   display: flex;
-  gap: 2rem;
+  gap: 1.5rem;
   margin-left: auto;
   align-items: flex-end;
 }
@@ -361,4 +361,17 @@ Footer{
 			position: absolute;
 			bottom: 0;
 			width: 100%;
+}
+
+.usaa-logo{
+  height: 30px;
+  margin-right: 1rem;
+  margin-top: 1.5rem;
+}
+
+.logoContainer{
+  display: flex;
+  position:absolute;
+  padding: 0px;
+  margin: 0px;
 }

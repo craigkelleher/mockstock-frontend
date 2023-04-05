@@ -1,16 +1,3 @@
-.navbarContainer {
-    background-color: #214460;;
-    border-radius: 5px;
-    box-shadow: 5px 5px 5px #111;
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    align-items: center;
-    padding: .5rem 1rem;
-    font-size: 1.5rem;
-    flex-wrap: wrap;
-  }
-
   .container {
     display: flex;
     flex-direction: column;
