@@ -17,7 +17,8 @@ table td {
     border-bottom: 1px solid #fcfcfc;
     margin-top: 3rem;
     margin-bottom: 5px;
-    padding-bottom: 12px;
+    padding: .15rem;
+    color: #e9e8e8;
 }
 
 table td button {
@@ -47,3 +48,7 @@ h2 {
     color: #ffffff;
     
 }
+
+.portfolio-table {
+    margin-top: 4.5rem;
+  }

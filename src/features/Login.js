@@ -7,7 +7,7 @@ import '../Login.css';
 const Login = () => {
     return (
         <div className="container">
-            <img src={usaaLogo} alt="USAA Logo" style={{width:'200px'}}/>
+            <img src={usaaLogo} className="loginLogo"alt="USAA Logo" style={{width:'200px'}}/>
             <div className="login-module">
                 <h2>Welcome!</h2>
                 <form>
