@@ -31,7 +31,7 @@ function PortfolioTable(props) {
     }
 
     return (
-        <table>
+        <table className="portfolio-table">
             <tr>
                 <th>Symbol</th>
                 <th>Share Price</th>
