@@ -48,6 +48,10 @@ img {
     margin: 50px auto 20px;
 }
 
+.loginLogo {
+  transform: translate(.36rem);
+}
+
 body{
     background-color: #214460;
     background: #214460;
