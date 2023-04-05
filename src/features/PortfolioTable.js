@@ -61,10 +61,11 @@ function PortfolioTable(props) {
         <table className="portfolio-table">
             <tr>
                 <th>Symbol</th>
-                <th>Share Price</th>
+                <th className="stock-name">Name</th>
+                <th>Price</th>
                 <th>#Shares</th>
                 <th>$ Invested</th>
-                <th>Investment Value</th>
+                <th>Value</th>
                 <th>Action</th>
             </tr>
         <tbody>

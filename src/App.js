@@ -1,7 +1,6 @@
 import './App.css'
 import { Route, Routes } from 'react-router-dom'
 import { useEffect } from 'react'
-import Home from './Components/Home'
 import Navbar from './Components/Navbar'
 import About from './Components/About'
 import EditModal from './Components/EditModal'
@@ -46,7 +45,7 @@ const App = () => {
       {showModal && <EditModal />}
       {showNewRecordModal && <NewRecordModal />}
       <Routes>
-        <Route path='/' element={<Home />} />
+        <Route path='/' element={<Login />} />
         <Route path="/login" element={<Login />} />
         <Route path="/portfolio" element={<PortfolioPage />} />
         <Route path='/about' element={<About />} />
