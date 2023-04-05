@@ -1,34 +1,61 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import '../PortfolioPage.css';
+import axios from "axios";
 
 function PortfolioTable(props) {
-    const [portfolio, setPortfolio] = useState(props.portfolio);
+    const [portfolio, setPortfolio] = useState([]);
     const [sharesToBuyOrSell, setSharesToBuyOrSell] = useState({});
+    const [sharePrices, setSharePrices] = useState({});
+
+    const API_KEY = "cghh1b9r01qjd0395910cghh1b9r01qjd039591g"
     
-    function handleBuyShares(event, symbol) {
+    // TEST ID
+    const userId = 1;
+    
+    useEffect(() => {
+        async function fetchPortfolio() {
+            const response = await axios.get(`http://springbootmockstockaws-env.eba-m9mpenp5.us-west-1.elasticbeanstalk.com/api/user/${userId}/portfolio`);
+            setPortfolio(response.data);
+        }
+        fetchPortfolio();
+    }, []);
+
+    useEffect(() => {
+        async function fetchPrices() {
+            const prices = {};
+            for (const stock of portfolio) {
+                console.log("stock: ", stock.stockSymbol);
+                const response = await axios.get(`https://finnhub.io/api/v1/quote?symbol=${stock.stockSymbol}&token=${API_KEY}`);
+                prices[stock.stockSymbol] = response.data.c;
+                console.log("stock price ", response.data);
+            }
+            
+            setSharePrices(prices);
+        }
+        fetchPrices();
+    }, [portfolio]);
+
+
+
+    function handleBuyShares(event, stockSymbol) {
         const value = event.target.value;
         if (window.confirm("Do you really want to purchase the shares?")) {
             setSharesToBuyOrSell((prevShares) => ({
-                ...prevShares, [symbol]: value ? parseInt(value) : undefined,
+                ...prevShares, [stockSymbol]: value ? parseInt(value) : undefined,
             }));
             // TODO: connect code to update portfolio when you buy a share
         }
     };
 
-    function handleSellShares(event, symbol) {
+    function handleSellShares(event, stockSymbol) {
         const value = event.target.value;
         if (window.confirm("Do you really want to sell the shares?")) {
             setSharesToBuyOrSell((prevShares) => ({
-                ...prevShares, [symbol]: value ? parseInt(value) : undefined,
+                ...prevShares, [stockSymbol]: value ? parseInt(value) : undefined,
             }));
             // TODO: connect code to update portfolio when you sell a share
         }
     };
-
-    function getSharePrice(symbol) {
-        // TODO: Connect to finnhubAPI
-        return 150.00; //for testing
-    }
 
     return (
         <table className="portfolio-table">
@@ -41,23 +68,26 @@ function PortfolioTable(props) {
                 <th>Action</th>
             </tr>
         <tbody>
-            {portfolio.map(stock =>
-                <tr key={stock.symbol}>
-                    <td className="symbol-name">{stock.symbol}</td>
-                    <td>${getSharePrice(stock.symbol)}</td>
-                    <td>{stock.numberOfShares}</td>
-                    <td>${stock.amountInvested}</td>
-                    <td>${getSharePrice(stock.symbol) * stock.numberOfShares}</td>
-                    <td>
-                        <button onClick={handleBuyShares}>Buy</button>
-                    <label>
-                        <input type="number" min="0" value={sharesToBuyOrSell[stock.symbol]} onChange={(event) => sharesToBuyOrSell(event.target.value)} />
-                    </label>
-                    
-                    <button onClick={handleSellShares}>Sell</button>
-                    </td>
-                </tr>
-                )}
+            {portfolio.map(stock => {
+                const sharePrice = sharePrices[stock.stockSymbol] || 0;
+                return (
+                    <tr key={stock.stockSymbol}>
+                        <td className="stockSymbol-name">{stock.stockSymbol}</td>
+                        <td>${sharePrice}</td>
+                        <td>{stock.quantity}</td>
+                        <td>${stock.amountInvested}</td>
+                        <td>${sharePrice * stock.quantity}</td>
+                        <td>
+                            <button onClick={handleBuyShares}>Buy</button>
+                        <label>
+                            <input type="number" min="0" value={sharesToBuyOrSell[stock.stockSymbol]} onChange={(event) => sharesToBuyOrSell(event.target.value)} />
+                        </label>
+                        
+                        <button onClick={handleSellShares}>Sell</button>
+                        </td>
+                    </tr>
+                )
+            })}
         </tbody>
         </table>
     );
