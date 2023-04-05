@@ -14,6 +14,7 @@ const popularStocks = [
     { name: "McDonald's Corp.", symbol: "MCD", price: 282.02, change: -0.092},
     { name: "Microsoft Corp.", symbol: "MSFT", price: 284.34, change: -0.99 },
     { name: "PepsiCo, Inc.", symbol: "PEP", price: 183.64, change: 0.98},
+    { name: "Tesla Inc", symbol: "TSLA", price: 185.52, change: -3.67},
     { name: "Walt Disney", symbol: "DIS", price: 99.91, change: 0.34}
     // add more stock here...`
 ];

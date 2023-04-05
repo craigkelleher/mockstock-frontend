@@ -74,6 +74,7 @@ function PortfolioTable(props) {
                 return (
                     <tr key={stock.stockSymbol}>
                         <td className="stockSymbol-name">{stock.stockSymbol}</td>
+                        <td className="stock-name">{stock.name}</td>
                         <td>${sharePrice}</td>
                         <td>{stock.quantity}</td>
                         <td>${stock.amountInvested}</td>
