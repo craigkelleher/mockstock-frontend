@@ -34,16 +34,18 @@ function PortfolioTable(props) {
         <table className="portfolio-table">
             <tr>
                 <th>Symbol</th>
-                <th>Share Price</th>
+                <th className="stock-name">Name</th>
+                <th>Price</th>
                 <th>#Shares</th>
                 <th>$ Invested</th>
-                <th>Investment Value</th>
+                <th>Value</th>
                 <th>Action</th>
             </tr>
         <tbody>
             {portfolio.map(stock =>
                 <tr key={stock.symbol}>
                     <td className="symbol-name">{stock.symbol}</td>
+                    <td className="stock-name">{stock.name}</td>
                     <td>${getSharePrice(stock.symbol)}</td>
                     <td>{stock.numberOfShares}</td>
                     <td>${stock.amountInvested}</td>
