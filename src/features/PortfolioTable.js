@@ -10,7 +10,7 @@ function PortfolioTable(props) {
     const API_KEY = "cghh1b9r01qjd0395910cghh1b9r01qjd039591g"
     
     // TEST ID
-    const userId = 1;
+    const userId = 3;
     
     useEffect(() => {
         async function fetchPortfolio() {
@@ -29,7 +29,6 @@ function PortfolioTable(props) {
                 prices[stock.stockSymbol] = response.data.c;
                 console.log("stock price ", response.data);
             }
-            
             setSharePrices(prices);
         }
         fetchPrices();
@@ -59,15 +58,17 @@ function PortfolioTable(props) {
 
     return (
         <table className="portfolio-table">
-            <tr>
-                <th>Symbol</th>
-                <th className="stock-name">Name</th>
-                <th>Price</th>
-                <th>#Shares</th>
-                <th>$ Invested</th>
-                <th>Value</th>
-                <th>Action</th>
-            </tr>
+            <thead>
+                <tr>
+                    <th>Symbol</th>
+                    <th className="stock-name">Name</th>
+                    <th>Price</th>
+                    <th>#Shares</th>
+                    <th>$ Invested</th>
+                    <th>Value</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
         <tbody>
             {portfolio.map(stock => {
                 const sharePrice = sharePrices[stock.stockSymbol] || 0;
@@ -78,7 +79,7 @@ function PortfolioTable(props) {
                         <td>${sharePrice}</td>
                         <td>{stock.quantity}</td>
                         <td>${stock.amountInvested}</td>
-                        <td>${sharePrice * stock.quantity}</td>
+                        <td>${(sharePrice * stock.quantity).toFixed(2)}</td>
                         <td>
                             <button onClick={handleBuyShares}>Buy</button>
                         <label>
