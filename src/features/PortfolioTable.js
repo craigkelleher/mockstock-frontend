@@ -2,20 +2,19 @@ import React, {useEffect, useState} from "react";
 import '../PortfolioPage.css';
 import axios from "axios";
 
-function PortfolioTable(props) {
-    const [portfolio, setPortfolio] = useState([]);
+function PortfolioTable({ portfolio, userId, setPortfolio }) {
+
     const [sharesToBuyOrSell, setSharesToBuyOrSell] = useState({});    
-    // TEST ID
-    const userId = 4;
+
     
-    useEffect(() => {
-        async function fetchPortfolio() {
-            // const response = await axios.get(`http://localhost:8080/api/user/${userId}/portfolio`);
-            const response = await axios.get(`http://springbootmockstockaws-env.eba-m9mpenp5.us-west-1.elasticbeanstalk.com/api/user/${userId}/portfolio`);
-            setPortfolio(response.data);
-        }
-        fetchPortfolio();
-    }, [portfolio]);
+    // useEffect(() => {
+    //     async function fetchPortfolio() {
+    //         // const response = await axios.get(`http://localhost:8080/api/user/${userId}/portfolio`);
+    //         const response = await axios.get(`http://springbootmockstockaws-env.eba-m9mpenp5.us-west-1.elasticbeanstalk.com/api/user/${userId}/portfolio`);
+    //         setPortfolio(response.data);
+    //     }
+    //     fetchPortfolio();
+    // }, []);
 
     function handleBuyShares(stockSymbol) {
 
