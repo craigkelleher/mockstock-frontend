@@ -22,7 +22,6 @@ const Login = () => {
                     <button type="submit">Login</button>
                 </form>
             </div>
-            <Footer/>
         </div>
     )
 }

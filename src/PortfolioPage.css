@@ -6,6 +6,7 @@ table {
     position: relative;
     left: 50%;
     transform: translate(-50%);
+    margin-bottom: 3rem;
 }
 
 table th {
@@ -79,7 +80,17 @@ input[type="number"] {
     margin-top: 1rem;
     font-family: Gotham Narrow, arial, sans-serif;
     font-weight: 100;
+    position: relative;
+}
 
+.section-header::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: .1rem;
+    background-image: linear-gradient(to right, #00ffff00, #00ffff00, #ffffff, #00ffff00, #00ffff00);
 }
 
 .portfolio-table {

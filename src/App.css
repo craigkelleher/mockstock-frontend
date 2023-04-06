@@ -1,8 +1,7 @@
 * {
   margin: 0px;
   box-sizing: border-box;
-  
-  font-family: Gotham Narrow,arial,sans-serif;
+  font-family: Gotham Narrow, arial, sans-serif;
 }
 
 
@@ -83,6 +82,7 @@ button:hover {
   font-size: 1.1rem;
   border-radius: 5px;
   padding: .25rem;
+
   border: none;
   background: #eee;
   outline-color: #aaa;
@@ -116,7 +116,7 @@ button:hover {
 }
 
 .controlBtn {
-  font-family: Gotham Narrow,arial,sans-serif;
+  font-family: Gotham Narrow, arial, sans-serif;
   color: white;
   font-weight: bold;
   font-size: 1.1rem;
@@ -165,7 +165,7 @@ button:hover {
   user-select: none;
   text-shadow: 1px 1px 2px black;
   margin-left: 2.5rem;
-  font-family: Gotham Narrow,arial,sans-serif;
+  font-family: Gotham Narrow, arial, sans-serif;
 }
 
 .navbarContainer {
@@ -355,24 +355,24 @@ button:hover {
   }
 }
 
-Footer{
+Footer {
   background-color: #333;
-			color: #fff;
-			padding: 10px;
-			position: fixed;
-			bottom: 0;
-			width: 100%;
+  color: #fff;
+  padding: 10px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
 }
 
-.usaa-logo{
+.usaa-logo {
   height: 30px;
   margin-right: 1rem;
   margin-top: 1.5rem;
 }
 
-.logoContainer{
+.logoContainer {
   display: flex;
-  position:absolute;
+  position: absolute;
   padding: 0px;
   margin: 0px;
 }
