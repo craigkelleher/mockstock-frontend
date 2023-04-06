@@ -19,7 +19,7 @@ function PortfolioTable(props) {
 
     function handleBuyShares(stockSymbol) {
 
-        if (window.confirm("Do you really want to purchase the shares?")) {
+        if (window.confirm(`Do you really want to purchase ${sharesToBuyOrSell[stockSymbol]} shares of ${stockSymbol}?`)) {
             const transaction = {
                 stockSymbol: stockSymbol,
                 transactionType: "buy",
@@ -41,7 +41,7 @@ function PortfolioTable(props) {
 
     function handleSellShares(stockSymbol) {
 
-        if (window.confirm("Do you really want to sell the shares?")) {
+        if (window.confirm(`Do you really want to sell ${sharesToBuyOrSell[stockSymbol]} shares of ${stockSymbol}?`)) {
             const transaction = {
                 stockSymbol: stockSymbol,
                 transactionType: "sell",
@@ -93,7 +93,7 @@ function PortfolioTable(props) {
                     <td>${stock.amountInvested}</td>
                     <td>${stock.price * stock.quantity}</td>
                     <td className="button-mimic" onClick={() => handleBuyShares(stock.stockSymbol)}>Buy</td>
-                    <td class="input-cell"><input type="number" min="0" value={sharesToBuyOrSell[stock.stockSymbol] === null ? '' : sharesToBuyOrSell[stock.stockSymbol]} onChange={(event) => handleShareChange(event.target.value, stock.stockSymbol)} /></td>
+                    <td className="input-cell"><input type="number" min="0" value={sharesToBuyOrSell[stock.stockSymbol] === null ? '' : sharesToBuyOrSell[stock.stockSymbol]} onChange={(event) => handleShareChange(event.target.value, stock.stockSymbol)} /></td>
                     <td className="button-mimic" onClick={() => handleSellShares(stock.stockSymbol)}>Sell</td>
                 </tr>
             )}
