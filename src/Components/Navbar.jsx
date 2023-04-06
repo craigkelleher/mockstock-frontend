@@ -29,7 +29,7 @@ const Navbar = () => {
             <div className='linksContainer'>
                 <Link className='navLink' id="/login" to="/login">Login</Link>
                 <Link className='navLink' id="/portfolio" to="/portfolio">Portfolio</Link>
-                <Link className='navLink' id="/about" to="/about">About</Link>
+                <Link className='navLink' id="/Transactions" to="/Transactions">Transactions</Link>
             </div>
 
         </div>

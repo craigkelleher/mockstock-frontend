@@ -2,7 +2,7 @@ import './App.css'
 import { Route, Routes } from 'react-router-dom'
 import { useEffect } from 'react'
 import Navbar from './Components/Navbar'
-import About from './Components/About'
+import Transactions from './Components/Transactions'
 import EditModal from './Components/EditModal'
 import { useDispatch, useSelector } from 'react-redux'
 import { setRecordsToDisplay } from './features/recordsToDisplay'
@@ -48,7 +48,7 @@ const App = () => {
         <Route path='/' element={<Login />} />
         <Route path="/login" element={<Login />} />
         <Route path="/portfolio" element={<PortfolioPage />} />
-        <Route path='/about' element={<About />} />
+        <Route path='/Transactions' element={<Transactions />} />
       </Routes>
       <Footer/>
     </div>
