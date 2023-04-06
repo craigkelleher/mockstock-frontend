@@ -11,10 +11,21 @@ function PortfolioPage() {
 ];
     return (
         <div>
-            <h2 className="section-header"> My Portfolio </h2>
-            <PortfolioTable portfolio={portfolio} />
-            <h2 className="section-header"> Marketplace</h2>
-            <Marketplace Marketplace={Marketplace} />
+            <div className="user-info">
+                <p>Robin's Portfolio</p>
+                {/* Add cash balance and investment value here */}
+                <p>Cash: $25000</p>
+                {/* Add cash balance and investment value here */}
+                <p>Profit / Loss: $115000</p>
+                {/* Add cash balance and investment value here */}
+                <p>Investment Value: $225,000</p>
+            </div>
+            <div>
+                <h2 className="section-header"> My Portfolio </h2>
+                <PortfolioTable portfolio={portfolio} />
+                <h2 className="section-header"> Marketplace</h2>
+                <Marketplace Marketplace={Marketplace} />
+            </div>
         </div>
     )
 }

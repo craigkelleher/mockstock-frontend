@@ -22,14 +22,15 @@ const popularStocks = [
 function Marketplace() {
     return (
         <table>
-            <tr>
-                <th>Symbol</th>
-                <th className="stock-name">Name</th>
-                <th>Price</th>
-                <th>Daily % Change</th>
-                <th>Action</th>
-            </tr>
-
+            <thead>
+                <tr>
+                    <th>Symbol</th>
+                    <th className="stock-name">Name</th>
+                    <th>Price</th>
+                    <th>Daily % Change</th>
+                    {/* <th>Add</th> */}
+                </tr>
+            </thead>
             <tbody>
                 {popularStocks.map((stock) => (
                     <tr key={stock.symbol}>
@@ -37,8 +38,9 @@ function Marketplace() {
                         <td className="stock-name">{stock.name}</td>
                         <td>{`$${stock.price.toFixed(2)}`}</td>
                         <td>{`${stock.change.toFixed(2)}%`}</td>
-                        <td>
-                            <button> Add to Portfolio </button>
+                        <td title='Add to Portfolio' className="button-mimic">
+                             <p>+
+                             </p>
                         </td>
                     </tr>
 

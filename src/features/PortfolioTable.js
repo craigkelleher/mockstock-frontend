@@ -70,15 +70,19 @@ function PortfolioTable(props) {
 
     return (
         <table className="portfolio-table">
-            <tr>
-                <th>Symbol</th>
-                <th className="stock-name">Name</th>
-                <th>Price</th>
-                <th>#Shares</th>
-                <th>$ Invested</th>
-                <th>Value</th>
-                <th>Action</th>
-            </tr>
+            <thead>
+                <tr>
+                    <th>Symbol</th>
+                    <th className="stock-name">Name</th>
+                    <th>Price</th>
+                    <th>#Shares</th>
+                    <th>Profit/Loss</th>
+                    <th>Value</th>
+                    <th>Action</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
         <tbody>
             {portfolio.map(stock => 
                 <tr key={stock.stockSymbol}>
@@ -88,14 +92,9 @@ function PortfolioTable(props) {
                     <td>{stock.quantity}</td>
                     <td>${stock.amountInvested}</td>
                     <td>${stock.price * stock.quantity}</td>
-                    <td>
-                        <button onClick={() => handleBuyShares(stock.stockSymbol)}>Buy</button>
-                    <label>
-                        <input type="number" min="0" value={sharesToBuyOrSell[stock.stockSymbol] === null ? '' : sharesToBuyOrSell[stock.stockSymbol]} onChange={(event) => handleShareChange(event.target.value, stock.stockSymbol)} />
-                    </label>
-                    
-                    <button onClick={() => handleSellShares(stock.stockSymbol)}>Sell</button>
-                    </td>
+                    <td className="button-mimic" onClick={() => handleBuyShares(stock.stockSymbol)}>Buy</td>
+                    <td class="input-cell"><input type="number" min="0" value={sharesToBuyOrSell[stock.stockSymbol] === null ? '' : sharesToBuyOrSell[stock.stockSymbol]} onChange={(event) => handleShareChange(event.target.value, stock.stockSymbol)} /></td>
+                    <td className="button-mimic" onClick={() => handleSellShares(stock.stockSymbol)}>Sell</td>
                 </tr>
             )}
         </tbody>
