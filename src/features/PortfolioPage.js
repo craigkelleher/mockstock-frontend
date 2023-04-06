@@ -16,7 +16,7 @@ function PortfolioPage() {
                 {/* Add cash balance and investment value here */}
                 <p>Cash: $25000</p>
                 {/* Add cash balance and investment value here */}
-                <p>Invested: $115000</p>
+                <p>Profit / Loss: $115000</p>
                 {/* Add cash balance and investment value here */}
                 <p>Investment Value: $225,000</p>
             </div>
