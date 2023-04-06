@@ -24,12 +24,9 @@ function PortfolioTable(props) {
         async function fetchPrices() {
             const prices = {};
             for (const stock of portfolio) {
-                console.log("stock: ", stock.stockSymbol);
                 const response = await axios.get(`https://finnhub.io/api/v1/quote?symbol=${stock.stockSymbol}&token=${API_KEY}`);
                 prices[stock.stockSymbol] = response.data.c;
-                console.log("stock price ", response.data);
             }
-            
             setSharePrices(prices);
         }
         fetchPrices();
@@ -44,6 +41,7 @@ function PortfolioTable(props) {
                 ...prevShares, [stockSymbol]: value ? parseInt(value) : undefined,
             }));
             // TODO: connect code to update portfolio when you buy a share
+            console.log(value);
         }
     };
 
@@ -80,7 +78,7 @@ function PortfolioTable(props) {
                         <td>
                             <button onClick={handleBuyShares}>Buy</button>
                         <label>
-                            <input type="number" min="0" value={sharesToBuyOrSell[stock.stockSymbol]} onChange={(event) => sharesToBuyOrSell(event.target.value)} />
+                            <input type="number" min="0" value={sharesToBuyOrSell[stock.stockSymbol]} onChange={(event) => setSharesToBuyOrSell(event.target.value)} />
                         </label>
                         
                         <button onClick={handleSellShares}>Sell</button>
