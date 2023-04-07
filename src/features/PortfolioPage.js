@@ -6,9 +6,9 @@ import axios from "axios";
 
 function PortfolioPage() {
   const [user, setUser] = useState({});
-  const [transactions, setTransactions] = useState([]);
   const [portfolio, setPortfolio] = useState([]);
   const [investmentValue, setInvestmentValue] = useState(0.00);
+  const [stockPrice, setStockPrice] = useState({});
 
   // TEST ID
   const userId = 13;
@@ -21,40 +21,28 @@ function PortfolioPage() {
     fetchUser();
   }, [])
 
-  useEffect(() => {
-    axios.get(`http://springbootmockstockaws-env.eba-m9mpenp5.us-west-1.elasticbeanstalk.com/api/user/${userId}/transactions`)
-    .then((response) => {
-        let sum = 0.00;
-        response.data.forEach((transaction) => {
-            if (transaction.transactionType === "buy") {
-                sum += transaction.stockPrice;
-            } else {
-                sum -= transaction.stockPrice;
-            }
-        })
-
-        setTransactions(response.data)
-    })
-  }, [])
-
-
 
   useEffect(() => {
     axios.get(`http://springbootmockstockaws-env.eba-m9mpenp5.us-west-1.elasticbeanstalk.com/api/user/${userId}/portfolio`)
     .then(async (response) => {
-        
         let sum = 0.00;
         for (let stock of response.data) {
-            const fetchedStock = await getStock(stock.stockSymbol);
-        
-            sum += fetchedStock;
+            const fetchedStockPrice = await getStockPrice(stock.stockSymbol);
+            
+            sum += fetchedStockPrice * stock.quantity;
+
+            setStockPrice({
+                ...stockPrice,
+                [stock.stockSymbol]: fetchedStockPrice
+            })
+
         }
         setPortfolio(response.data);
         setInvestmentValue(sum);
     })
   }, [])
 
-    async function getStock(stockSymbol) {
+    async function getStockPrice(stockSymbol) {
         const response = await axios.get(`http://springbootmockstockaws-env.eba-m9mpenp5.us-west-1.elasticbeanstalk.com/quotes/${stockSymbol}`);
         return response.data.price;
     }
@@ -73,7 +61,7 @@ function PortfolioPage() {
             </div>
             <div>
                 <h2 className="section-header"> My Portfolio </h2>
-                <PortfolioTable portfolio={portfolio} userId={user.id} />
+                <PortfolioTable portfolio={portfolio} userId={user.id} stockPrice={stockPrice} setPortfolio={setPortfolio} />
                 <h2 className="section-header"> Marketplace</h2>
                 <Marketplace Marketplace={Marketplace} />
             </div>

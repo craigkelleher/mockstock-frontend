@@ -2,10 +2,9 @@ import React, {useEffect, useState} from "react";
 import '../PortfolioPage.css';
 import axios from "axios";
 
-function PortfolioTable({ portfolio, userId, transactionSummation }) {
+function PortfolioTable({ portfolio, userId, stockPrice, setPortfolio }) {
 
     const [sharesToBuyOrSell, setSharesToBuyOrSell] = useState({});
-    const [stockPrice, setStockPrice] = useState({});
 
     
     // useEffect(() => {
@@ -36,8 +35,16 @@ function PortfolioTable({ portfolio, userId, transactionSummation }) {
             axios.post(`http://springbootmockstockaws-env.eba-m9mpenp5.us-west-1.elasticbeanstalk.com/api/user/${userId}/transactions`,
             transaction)
                 .then(() => {
+                    
+                    axios.get(`http://springbootmockstockaws-env.eba-m9mpenp5.us-west-1.elasticbeanstalk.com/api/user/${userId}/portfolio`)
+                    .then((response) => {
+                        setPortfolio(response.data);
+                    })
+
                     handleShareChange(null, stockSymbol)
-                })
+                });
+            
+
         }
     };
 
@@ -82,16 +89,6 @@ function PortfolioTable({ portfolio, userId, transactionSummation }) {
             })
     }
     
-    function getValue(stock) {
-        axios.get(`http://springbootmockstockaws-env.eba-m9mpenp5.us-west-1.elasticbeanstalk.com/quotes/${stock.stockSymbol}`)
-        .then((response) => {
-            setStockPrice({
-                ...stockPrice,
-                [stock.stockSymbol]: response.data.price
-            });
-        })
-        
-    }
 
     return (
         <table className="portfolio-table">
@@ -110,14 +107,13 @@ function PortfolioTable({ portfolio, userId, transactionSummation }) {
             </thead>
         <tbody>
             {portfolio.map(stock => {
-                getValue(stock);
                 return (
                     <tr key={stock.stockSymbol}>
                         <td className="stockSymbol-name">{stock.stockSymbol}</td>
                         <td className="stock-name">{stock.name}</td>
                         <td>${stockPrice[stock.stockSymbol]}</td>
                         <td>{stock.quantity}</td>
-                        <td>${handleProfitLoss(stock)}</td>
+                        <td>${}</td>
                         <td>${stockPrice[stock.stockSymbol] * stock.quantity}</td>
                         <td className="button-mimic" onClick={() => handleBuyShares(stock.stockSymbol)}>Buy</td>
                         <td className="input-cell"><input type="number" min="0" value={sharesToBuyOrSell[stock.stockSymbol] === null ? '' : sharesToBuyOrSell[stock.stockSymbol]} onChange={(event) => handleShareChange(event.target.value, stock.stockSymbol)} /></td>
