@@ -8,11 +8,10 @@ function PortfolioPage() {
   const [user, setUser] = useState({});
   const [transactions, setTransactions] = useState([]);
   const [portfolio, setPortfolio] = useState([]);
-  const [profit, setProfit] = useState(0.00);
   const [investmentValue, setInvestmentValue] = useState(0.00);
 
   // TEST ID
-  const userId = 4;
+  const userId = 13;
 
   useEffect(() => {
     async function fetchUser() {
@@ -20,7 +19,7 @@ function PortfolioPage() {
         setUser(response.data);
     }
     fetchUser();
-  }, [portfolio])
+  }, [])
 
   useEffect(() => {
     axios.get(`http://springbootmockstockaws-env.eba-m9mpenp5.us-west-1.elasticbeanstalk.com/api/user/${userId}/transactions`)
@@ -35,20 +34,31 @@ function PortfolioPage() {
         })
 
         setTransactions(response.data)
-        setProfit(sum);
     })
-  }, [portfolio])
+  }, [])
+
+
 
   useEffect(() => {
     axios.get(`http://springbootmockstockaws-env.eba-m9mpenp5.us-west-1.elasticbeanstalk.com/api/user/${userId}/portfolio`)
-    .then((response) => {
+    .then(async (response) => {
+        
         let sum = 0.00;
-        response.data.forEach((stock) => sum += stock.price * stock.quantity);
-
+        for (let stock of response.data) {
+            const fetchedStock = await getStock(stock.stockSymbol);
+        
+            sum += fetchedStock;
+        }
         setPortfolio(response.data);
         setInvestmentValue(sum);
     })
-  }, [portfolio])
+  }, [])
+
+    async function getStock(stockSymbol) {
+        const response = await axios.get(`http://springbootmockstockaws-env.eba-m9mpenp5.us-west-1.elasticbeanstalk.com/quotes/${stockSymbol}`);
+        return response.data.price;
+    }
+
 
     return (
         <div>
@@ -57,13 +67,13 @@ function PortfolioPage() {
                 {/* Add cash balance and investment value here */}
                 <p>{`Cash: $${user.balance}`}</p>
                 {/* Add cash balance and investment value here */}
-                <p>{`Profit / Loss: $${profit}`}</p>
+                <p>{`Profit/Loss: $`}</p>
                 {/* Add cash balance and investment value here */}
-                <p>{`Investment Value: $${investmentValue}`}</p>
+                <p>{`Investment Value: $${investmentValue.toFixed(2)}`}</p>
             </div>
             <div>
                 <h2 className="section-header"> My Portfolio </h2>
-                <PortfolioTable portfolio={portfolio} userId={user.id} setPortfolio={setPortfolio} />
+                <PortfolioTable portfolio={portfolio} userId={user.id} />
                 <h2 className="section-header"> Marketplace</h2>
                 <Marketplace Marketplace={Marketplace} />
             </div>
