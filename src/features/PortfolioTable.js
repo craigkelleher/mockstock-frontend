@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from "react";
 import '../PortfolioPage.css';
 import axios from "axios";
+import helpers from './helperFunctions';
 
-function PortfolioTable({ portfolio, userId, stockPrice, fetchPortfolio, formatNumber }) {
+function PortfolioTable({ portfolio, userId, stockPrice, fetchPortfolio }) {
 
     const [sharesToBuyOrSell, setSharesToBuyOrSell] = useState({});
 
@@ -85,7 +86,7 @@ function PortfolioTable({ portfolio, userId, stockPrice, fetchPortfolio, formatN
                         <td>${stockPrice[stock.stockSymbol]}</td>
                         <td>{stock.quantity}</td>
                         <td>${stock.profitLoss}</td>
-                        <td>${formatNumber(stockPrice[stock.stockSymbol] * stock.quantity)}</td>
+                        <td>${helpers.formatNumber(stockPrice[stock.stockSymbol] * stock.quantity)}</td>
                         <td className="button-mimic" onClick={() => handleBuyShares(stock.stockSymbol)}>Buy</td>
                         <td className="input-cell"><input type="number" min="0" value={sharesToBuyOrSell[stock.stockSymbol] === null ? '' : sharesToBuyOrSell[stock.stockSymbol]} onChange={(event) => handleShareChange(event.target.value, stock.stockSymbol)} /></td>
                         <td className="button-mimic" onClick={() => handleSellShares(stock.stockSymbol)}>Sell</td>
