@@ -31,7 +31,8 @@ const App = () => {
   const showNewRecordModal = useSelector(state => state.showNewRecordModal.value)
 
   // TEST ID
-  const userId = 28;
+  const userId = 31;
+
 
   useEffect(() => {
     updateRecordsDisplay();

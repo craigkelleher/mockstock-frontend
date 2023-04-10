@@ -38,6 +38,7 @@ table td button {
 .button-mimic:hover {
     background-color: #ffffff;
     color: #214460;
+    cursor: pointer;
 }
 
 .symbol-name {
