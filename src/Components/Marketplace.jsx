@@ -4,9 +4,9 @@ import PortfolioTable from "../features/PortfolioTable";
 import helpers from '../helpers';
 
 
-
 function Marketplace({ fetchPortfolio, portfolio, userId }) {
     const [marketplace, setMarketplace] = useState([]);
+    const [isAddingPortfolioEntry, setIsAddingPortfolioEntry] = useState(false);
 
 
     useEffect(() => {
@@ -16,7 +16,7 @@ function Marketplace({ fetchPortfolio, portfolio, userId }) {
     function fetchMarketplace() {
         axios.get(`http://springbootmockstockaws-env.eba-m9mpenp5.us-west-1.elasticbeanstalk.com/quotes`, {
             params: {
-                symbols: `ATVI,AMD,GOOG,AMZN,AAPl`
+                symbols: `ATVI,AMD,GOOG,AMZN,AAPL`
             }
         })
             .then((response) => {
@@ -25,6 +25,12 @@ function Marketplace({ fetchPortfolio, portfolio, userId }) {
     }
 
     function handleClick(stock) {
+        console.log(stock);
+        if (isAddingPortfolioEntry){
+            return;
+        }
+        setIsAddingPortfolioEntry(true);
+
         const portfolioEntry = {
             stockSymbol: stock.symbol,
             name: stock.companyName,
@@ -42,7 +48,8 @@ function Marketplace({ fetchPortfolio, portfolio, userId }) {
             .then(() => {
                 fetchPortfolio();
                 fetchMarketplace();
-            })
+                setIsAddingPortfolioEntry(false);
+            }, 2000);
     }
 
     return (
@@ -63,8 +70,8 @@ function Marketplace({ fetchPortfolio, portfolio, userId }) {
                         <td>{`$${helpers.formatNumber(stock.price)}`}</td>
                         <td>{`${helpers.formatNumber(stock.percentChange)}%`}</td>
                         <td title='Add to Portfolio' className="button-mimic">
-                             <p onClick={() => handleClick(stock)}>+
-                             </p>
+                            <p onClick={() => handleClick(stock)}>+
+                            </p>
                         </td>
                     </tr>
 
