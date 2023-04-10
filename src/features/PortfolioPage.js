@@ -11,7 +11,7 @@ function PortfolioPage() {
   const [stockPrice, setStockPrice] = useState({});
 
   // TEST ID
-  const userId = 14;
+  const userId = 23;
 
   useEffect(() => {
     fetchPortfolio();
@@ -27,7 +27,6 @@ function PortfolioPage() {
 
     function fetchPortfolio() {
         fetchUser();
-
         axios.get(`http://springbootmockstockaws-env.eba-m9mpenp5.us-west-1.elasticbeanstalk.com/api/user/${userId}/portfolio`)
         .then(async (response) => {
         let sum = 0.00;
@@ -40,7 +39,6 @@ function PortfolioPage() {
                 ...prevState,
                 [stock.stockSymbol]: fetchedStockPrice
             }));
-
         }
         sum = formatNumber(sum);
         setPortfolio(response.data);
@@ -59,7 +57,6 @@ function PortfolioPage() {
         return number;
     }
 
-
     return (
         <div>
             <div className="user-info">
@@ -72,7 +69,7 @@ function PortfolioPage() {
                 <h2 className="section-header"> My Portfolio </h2>
                 <PortfolioTable portfolio={portfolio} userId={user.id} stockPrice={stockPrice} fetchPortfolio={fetchPortfolio} formatNumber={formatNumber} />
                 <h2 className="section-header"> Marketplace</h2>
-                <Marketplace Marketplace={Marketplace} fetchPortfolio={fetchPortfolio} />
+                <Marketplace Marketplace={Marketplace} fetchPortfolio={fetchPortfolio} portfolio={portfolio} />
             </div>
         </div>
     )

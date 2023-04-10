@@ -22,22 +22,19 @@ const popularStocks = [
 ];
 
   // TEST ID
-  const userId = 14;
+  const userId = 23;
 
-function Marketplace({ fetchPortfolio }) {
-    const [portfolioRows, setPortfolioRows] = useState([]);
+function Marketplace({ fetchPortfolio, portfolio}) {
     function handleClick(stock) {
+        console.log(stock)
         const portfolioEntry = {
             stockSymbol: stock.symbol,
             name: stock.name,
             quantity: 0,
             profitLoss: 0.00
         }
-        console.log(portfolioRows);
-        for(let i = 1; i < portfolioRows.length; i++){
-            const rowSymbol = portfolioRows[i].cells[0].textContent;
-            console.log(rowSymbol);
-            if(rowSymbol === stock.symbol){
+        for(let i = 0; i < portfolio.length; i++){
+            if(portfolio[i].stockSymbol === stock.symbol){
                 return;
             }
         }
@@ -57,7 +54,6 @@ function Marketplace({ fetchPortfolio }) {
                     <th className="stock-name">Name</th>
                     <th>Price</th>
                     <th>Daily % Change</th>
-                    {/* <th>Add</th> */}
                 </tr>
             </thead>
             <tbody>
