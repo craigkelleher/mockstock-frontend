@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 const popularStocks = [
@@ -24,6 +24,18 @@ const popularStocks = [
   const userId = 14;
 
 function Marketplace({ fetchPortfolio }) {
+    const [marketplace, setMarketplace] = useState([]);
+
+    useEffect(() => {
+        axios.get(`http://localhost:8080/quotes`, {
+            params: {
+                symbols: 'ATVI,AMD,GOOG,AMZN,AAPL'
+            }
+        })
+            .then((response) => {
+                setMarketplace(response.data);
+            })
+    }, []);
 
     function handleClick(stock) {
         const portfolioEntry = {
@@ -52,19 +64,19 @@ function Marketplace({ fetchPortfolio }) {
                 </tr>
             </thead>
             <tbody>
-                {popularStocks.map((stock) => (
+                {marketplace.length > 0 ? marketplace.map((stock) => (
                     <tr key={stock.symbol}>
                         <td>{stock.symbol}</td>
-                        <td className="stock-name">{stock.name}</td>
+                        <td className="stock-name">{stock.companyName}</td>
                         <td>{`$${stock.price.toFixed(2)}`}</td>
-                        <td>{`${stock.change.toFixed(2)}%`}</td>
+                        <td>{`${stock.percentChange.toFixed(2)}%`}</td>
                         <td title='Add to Portfolio' className="button-mimic">
                              <p onClick={() => handleClick(stock)}>+
                              </p>
                         </td>
                     </tr>
 
-                ))}
+                )) : "Loading Marketplace..."}
             </tbody>
         </table>
     );
