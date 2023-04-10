@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import axios from "axios";
+import PortfolioTable from "../features/PortfolioTable";
 
 const popularStocks = [
     { name: "Activision Blizzard Inc.", symbol: "ATVI", price: 85.38, change: 0.32 },
@@ -24,13 +25,21 @@ const popularStocks = [
   const userId = 14;
 
 function Marketplace({ fetchPortfolio }) {
-
+    const [portfolioRows, setPortfolioRows] = useState([]);
     function handleClick(stock) {
         const portfolioEntry = {
             stockSymbol: stock.symbol,
             name: stock.name,
             quantity: 0,
             profitLoss: 0.00
+        }
+        console.log(portfolioRows);
+        for(let i = 1; i < portfolioRows.length; i++){
+            const rowSymbol = portfolioRows[i].cells[0].textContent;
+            console.log(rowSymbol);
+            if(rowSymbol === stock.symbol){
+                return;
+            }
         }
 
         axios.post(`http://springbootmockstockaws-env.eba-m9mpenp5.us-west-1.elasticbeanstalk.com/api/user/${userId}/portfolio`,
