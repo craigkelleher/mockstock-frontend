@@ -56,7 +56,7 @@ function PortfolioTable({ portfolio, userId, stockPrice, fetchPortfolio, formatN
     }
 
     function handleRemoveClick(stockSymbol){
-        if(window.confirm('Do you really want to remove ${stockSymbol} from your portfolio?')){
+        if(window.confirm(`Do you really want to remove ${stockSymbol} from your portfolio?`)){
             axios.delete(`http://springbootmockstockaws-env.eba-m9mpenp5.us-west-1.elasticbeanstalk.com/api/user/${userId}/portfolio/${stockSymbol}`)
                 .then(() => {
                     fetchPortfolio();
