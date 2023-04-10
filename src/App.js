@@ -33,6 +33,7 @@ const App = () => {
   // TEST ID
   const userId = 31;
 
+
   useEffect(() => {
     updateRecordsDisplay();
   }, [startIndex, endIndex, allRecords])

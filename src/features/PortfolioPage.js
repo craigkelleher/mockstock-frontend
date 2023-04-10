@@ -9,6 +9,7 @@ function PortfolioPage({ userId }) {
   const [user, setUser] = useState({});
   const [portfolio, setPortfolio] = useState([]);
   const [investmentValue, setInvestmentValue] = useState(0.00);
+  const [totalProfitLoss, setTotalProfitLoss] = useState(0.00);
   const [stockPrice, setStockPrice] = useState({});
 
   useEffect(() => {
@@ -27,20 +28,23 @@ function PortfolioPage({ userId }) {
         fetchUser();
         axios.get(`http://springbootmockstockaws-env.eba-m9mpenp5.us-west-1.elasticbeanstalk.com/api/user/${userId}/portfolio`)
         .then(async (response) => {
-        let sum = 0.00;
+        let investmentSum = 0.00;
+        let profitLossSum = 0.00;
         for (let stock of response.data) {
             const fetchedStockPrice = await getStockPrice(stock.stockSymbol);
             
-            sum += fetchedStockPrice * stock.quantity;
+            investmentSum += fetchedStockPrice * stock.quantity;
+            profitLossSum += stock.profitLoss;
 
             setStockPrice(prevState => ({
                 ...prevState,
                 [stock.stockSymbol]: fetchedStockPrice
             }));
         }
-        sum = helpers.formatNumber(sum);
+        investmentSum = helpers.formatNumber(investmentSum);
         setPortfolio(response.data);
-        setInvestmentValue(sum);
+        setInvestmentValue(investmentSum);
+        setTotalProfitLoss(profitLossSum);
     })
     }
 
@@ -54,7 +58,7 @@ function PortfolioPage({ userId }) {
             <div className="user-info">
                 <p>{`${user.name}'s Portfolio`}</p>
                 <p>{`Cash: $${user.balance}`}</p>
-                <p>{`Profit/Loss: $`}</p>
+                <p>{`Profit/Loss: $${totalProfitLoss}`}</p>
                 <p>{`Investment Value: $${investmentValue}`}</p>
             </div>
             <div>
