@@ -33,12 +33,6 @@ function PortfolioTable({ portfolio, userId, stockPrice, fetchPortfolio }) {
                 transactionType: "sell",
                 quantity: sharesToBuyOrSell[stockSymbol]
             };
-            
-            // axios.post(`http://localhost:8080/api/user/${userId}/transactions`,
-            // transaction)
-            //     .then(() => {
-            //         handleShareChange(0, stockSymbol)
-            //     })
 
             axios.post(`http://springbootmockstockaws-env.eba-m9mpenp5.us-west-1.elasticbeanstalk.com/api/user/${userId}/transactions`,
             transaction)
@@ -82,18 +76,34 @@ function PortfolioTable({ portfolio, userId, stockPrice, fetchPortfolio }) {
             </thead>
         <tbody>
             {portfolio.map(stock => {
+                const sellButton = stock.quantity === 0 ? (
+                    <td className="button-mimic" onClick={() => handleRemoveClick(stock.stockSymbol)}>⊘</td>
+                  ) : (
+                    <td className="button-mimic" onClick={() => handleSellShares(stock.stockSymbol)}>
+                      Sell
+                    </td>
+                  );
                 return (
-                    <tr key={stock.stockSymbol}>
-                        <td className="stockSymbol-name">{stock.stockSymbol}</td>
-                        <td className="stock-name">{stock.name}</td>
-                        <td>${helpers.formatNumber(stockPrice[stock.stockSymbol])}</td>
-                        <td>{stock.quantity}</td>
-                        <td>${stock.profitLoss}</td>
-                        <td>${helpers.formatNumber(stockPrice[stock.stockSymbol] * stock.quantity)}</td>
-                        <td className="button-mimic" onClick={() => handleBuyShares(stock.stockSymbol)}>Buy</td>
-                        <td className="input-cell"><input type="number" min="0" value={sharesToBuyOrSell[stock.stockSymbol] === null ? '' : sharesToBuyOrSell[stock.stockSymbol]} onChange={(event) => handleShareChange(event.target.value, stock.stockSymbol)} /></td>
-                        <td className="button-mimic" onClick={() => handleSellShares(stock.stockSymbol)}>Sell</td>
-                    </tr>
+            <tr key={stock.stockSymbol}>
+              <td className="stockSymbol-name">{stock.stockSymbol}</td>
+              <td className="stock-name">{stock.name}</td>
+              <td>${helpers.formatNumber(stockPrice[stock.stockSymbol])}</td>
+              <td>{stock.quantity}</td>
+              <td>${stock.profitLoss}</td>
+              <td>${helpers.formatNumber(stockPrice[stock.stockSymbol] * stock.quantity)}</td>
+              <td className="button-mimic" onClick={() => handleBuyShares(stock.stockSymbol)}>
+                Buy
+              </td>
+              <td className="input-cell">
+                <input
+                  type="number"
+                  min="0"
+                  value={sharesToBuyOrSell[stock.stockSymbol] === null ? "" : sharesToBuyOrSell[stock.stockSymbol]}
+                  onChange={(event) => handleShareChange(event.target.value, stock.stockSymbol)}
+                />
+              </td>
+              {sellButton}
+            </tr>
                 )}
             )}
         </tbody>
