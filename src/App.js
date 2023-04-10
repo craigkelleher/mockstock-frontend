@@ -30,6 +30,9 @@ const App = () => {
   const msgText = useSelector(state => state.msgText.value)
   const showNewRecordModal = useSelector(state => state.showNewRecordModal.value)
 
+  // TEST ID
+  const userId = 23;
+
   useEffect(() => {
     updateRecordsDisplay();
   }, [startIndex, endIndex, allRecords])
@@ -47,8 +50,8 @@ const App = () => {
       <Routes>
         <Route path='/' element={<Login />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/portfolio" element={<PortfolioPage />} />
-        <Route path='/transactions' element={<Transactions />} />
+        <Route path="/portfolio" element={<PortfolioPage userId={userId} />} />
+        <Route path='/transactions' element={<Transactions userId={userId} />} />
       </Routes>
       <Footer/>
     </div>

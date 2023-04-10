@@ -3,15 +3,13 @@ import PortfolioTable from './PortfolioTable';
 import Marketplace from "../Components/Marketplace";
 import '../PortfolioPage.css';
 import axios from "axios";
+import helpers from '../helpers';
 
-function PortfolioPage() {
+function PortfolioPage({ userId }) {
   const [user, setUser] = useState({});
   const [portfolio, setPortfolio] = useState([]);
   const [investmentValue, setInvestmentValue] = useState(0.00);
   const [stockPrice, setStockPrice] = useState({});
-
-  // TEST ID
-  const userId = 23;
 
   useEffect(() => {
     fetchPortfolio();
@@ -20,7 +18,7 @@ function PortfolioPage() {
     function fetchUser() {
         axios.get(`http://springbootmockstockaws-env.eba-m9mpenp5.us-west-1.elasticbeanstalk.com/api/user/${userId}`)
             .then((response) => {
-                response.data.balance = formatNumber(response.data.balance);
+                response.data.balance = helpers.formatNumber(response.data.balance);
                 setUser(response.data);
             })
     }
@@ -40,7 +38,7 @@ function PortfolioPage() {
                 [stock.stockSymbol]: fetchedStockPrice
             }));
         }
-        sum = formatNumber(sum);
+        sum = helpers.formatNumber(sum);
         setPortfolio(response.data);
         setInvestmentValue(sum);
     })
@@ -49,12 +47,6 @@ function PortfolioPage() {
     async function getStockPrice(stockSymbol) {
         const response = await axios.get(`http://springbootmockstockaws-env.eba-m9mpenp5.us-west-1.elasticbeanstalk.com/quotes/${stockSymbol}`);
         return response.data.price;
-    }
-
-    function formatNumber(number) {
-        number = parseFloat(number).toFixed(2);
-        number = number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        return number;
     }
 
     return (
@@ -67,9 +59,9 @@ function PortfolioPage() {
             </div>
             <div>
                 <h2 className="section-header"> My Portfolio </h2>
-                <PortfolioTable portfolio={portfolio} userId={user.id} stockPrice={stockPrice} fetchPortfolio={fetchPortfolio} formatNumber={formatNumber} />
+                <PortfolioTable portfolio={portfolio} userId={userId} stockPrice={stockPrice} fetchPortfolio={fetchPortfolio} />
                 <h2 className="section-header"> Marketplace</h2>
-                <Marketplace Marketplace={Marketplace} fetchPortfolio={fetchPortfolio} portfolio={portfolio} />
+                <Marketplace Marketplace={Marketplace} fetchPortfolio={fetchPortfolio} portfolio={portfolio} userId={userId} />
             </div>
         </div>
     )
