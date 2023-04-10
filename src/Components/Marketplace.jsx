@@ -31,6 +31,11 @@ function Marketplace({ fetchPortfolio, portfolio, userId }) {
         }
         setIsAddingPortfolioEntry(true);
 
+        if(portfolio.some(entry => entry.stockSymbol === stock.symbol)){
+            setIsAddingPortfolioEntry(false);
+            return;
+        }
+
         const portfolioEntry = {
             stockSymbol: stock.symbol,
             name: stock.companyName,
@@ -48,8 +53,14 @@ function Marketplace({ fetchPortfolio, portfolio, userId }) {
             .then(() => {
                 fetchPortfolio();
                 fetchMarketplace();
+                setTimeout(() => {
+                    setIsAddingPortfolioEntry(false);
+                }, 2000);
+            })
+            .catch(error => {
+                console.error(error);
                 setIsAddingPortfolioEntry(false);
-            }, 2000);
+            });
     }
 
     return (
@@ -69,9 +80,8 @@ function Marketplace({ fetchPortfolio, portfolio, userId }) {
                         <td className="stock-name">{stock.companyName}</td>
                         <td>{`$${helpers.formatNumber(stock.price)}`}</td>
                         <td>{`${helpers.formatNumber(stock.percentChange)}%`}</td>
-                        <td title='Add to Portfolio' className="button-mimic">
-                            <p onClick={() => handleClick(stock)}>+
-                            </p>
+                        <td onClick={() => handleClick(stock)} title='Add to Portfolio' className="button-mimic">
+                            <p>+</p>
                         </td>
                     </tr>
 
