@@ -16,7 +16,7 @@ function Marketplace({ fetchPortfolio, portfolio, userId }) {
     function fetchMarketplace() {
         axios.get(`http://springbootmockstockaws-env.eba-m9mpenp5.us-west-1.elasticbeanstalk.com/quotes`, {
             params: {
-                symbols: `ATVI,AMD,GOOG,AMZN,AAPl`
+                symbols: `ATVI,AMD,GOOG,AMZN,AAPL`
             }
         })
             .then((response) => {
