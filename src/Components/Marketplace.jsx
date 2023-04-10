@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
+import PortfolioTable from "../features/PortfolioTable";
 
 const popularStocks = [
     { name: "Activision Blizzard Inc.", symbol: "ATVI", price: 85.38, change: 0.32 },
@@ -19,7 +21,31 @@ const popularStocks = [
     // add more stock here...`
 ];
 
-function Marketplace() {
+  // TEST ID
+  const userId = 23;
+
+function Marketplace({ fetchPortfolio, portfolio}) {
+    function handleClick(stock) {
+        console.log(stock)
+        const portfolioEntry = {
+            stockSymbol: stock.symbol,
+            name: stock.name,
+            quantity: 0,
+            profitLoss: 0.00
+        }
+        for(let i = 0; i < portfolio.length; i++){
+            if(portfolio[i].stockSymbol === stock.symbol){
+                return;
+            }
+        }
+
+        axios.post(`http://springbootmockstockaws-env.eba-m9mpenp5.us-west-1.elasticbeanstalk.com/api/user/${userId}/portfolio`,
+        portfolioEntry)
+            .then(() => {
+                fetchPortfolio();
+            })
+    }
+
     return (
         <table>
             <thead>
@@ -28,7 +54,6 @@ function Marketplace() {
                     <th className="stock-name">Name</th>
                     <th>Price</th>
                     <th>Daily % Change</th>
-                    {/* <th>Add</th> */}
                 </tr>
             </thead>
             <tbody>
@@ -39,7 +64,7 @@ function Marketplace() {
                         <td>{`$${stock.price.toFixed(2)}`}</td>
                         <td>{`${stock.change.toFixed(2)}%`}</td>
                         <td title='Add to Portfolio' className="button-mimic">
-                             <p>+
+                             <p onClick={() => handleClick(stock)}>+
                              </p>
                         </td>
                     </tr>
