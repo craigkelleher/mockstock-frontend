@@ -4,9 +4,10 @@ import PortfolioTable from "../features/PortfolioTable";
 import helpers from '../helpers';
 
 
-function Marketplace({ fetchPortfolio, portfolio, userId }) {
+function Marketplace({ fetchPortfolio, portfolio }) {
     const [marketplace, setMarketplace] = useState([]);
     const [isAddingPortfolioEntry, setIsAddingPortfolioEntry] = useState(false);
+    const token = localStorage.getItem('token');
 
 
     useEffect(() => {
@@ -14,7 +15,9 @@ function Marketplace({ fetchPortfolio, portfolio, userId }) {
     }, []);
     
     function fetchMarketplace() {
-        axios.get(`http://springbootmockstockaws-env.eba-m9mpenp5.us-west-1.elasticbeanstalk.com/quotes`, {
+        axios.get(`http://springbootmockstockaws-env.eba-m9mpenp5.us-west-1.elasticbeanstalk.com/quotes`, { headers : {
+            Authorization: `Bearer ${token}`
+        },
             params: {
                 symbols: `ATVI,AMD,GOOG,AMZN,AAPL`
             }
@@ -48,8 +51,9 @@ function Marketplace({ fetchPortfolio, portfolio, userId }) {
             }
         }
 
-        axios.post(`http://springbootmockstockaws-env.eba-m9mpenp5.us-west-1.elasticbeanstalk.com/api/user/${userId}/portfolio`,
-        portfolioEntry)
+        axios.post(`http://springbootmockstockaws-env.eba-m9mpenp5.us-west-1.elasticbeanstalk.com/api/user/portfolio`, portfolioEntry, { headers : {
+            Authorization: `Bearer ${token}`}})
+        
             .then(() => {
                 fetchPortfolio();
                 fetchMarketplace();
