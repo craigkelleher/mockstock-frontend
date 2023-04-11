@@ -5,19 +5,21 @@ import '../PortfolioPage.css';
 import axios from "axios";
 import helpers from '../helpers';
 
-function PortfolioPage({ userId }) {
+function PortfolioPage() {
   const [user, setUser] = useState({});
   const [portfolio, setPortfolio] = useState([]);
   const [investmentValue, setInvestmentValue] = useState(0.00);
   const [totalProfitLoss, setTotalProfitLoss] = useState(0.00);
   const [stockPrice, setStockPrice] = useState({});
+  const token = localStorage.getItem('token');
 
   useEffect(() => {
     fetchPortfolio();
   }, [])
 
     function fetchUser() {
-        axios.get(`http://springbootmockstockaws-env.eba-m9mpenp5.us-west-1.elasticbeanstalk.com/api/user/${userId}`)
+        axios.get(`http://springbootmockstockaws-env.eba-m9mpenp5.us-west-1.elasticbeanstalk.com/api/user`, {
+            headers: { Authorization: `Bearer ${token}` }})
             .then((response) => {
                 response.data.balance = helpers.formatNumber(response.data.balance);
                 setUser(response.data);
@@ -26,7 +28,8 @@ function PortfolioPage({ userId }) {
 
     function fetchPortfolio() {
         fetchUser();
-        axios.get(`http://springbootmockstockaws-env.eba-m9mpenp5.us-west-1.elasticbeanstalk.com/api/user/${userId}/portfolio`)
+        axios.get(`http://springbootmockstockaws-env.eba-m9mpenp5.us-west-1.elasticbeanstalk.com/api/user/portfolio`, {
+            headers: { Authorization: `Bearer ${token}` }})
         .then(async (response) => {
         let investmentSum = 0.00;
         let profitLossSum = 0.00;
@@ -49,7 +52,8 @@ function PortfolioPage({ userId }) {
     }
 
     async function getStockPrice(stockSymbol) {
-        const response = await axios.get(`http://springbootmockstockaws-env.eba-m9mpenp5.us-west-1.elasticbeanstalk.com/quotes/${stockSymbol}`);
+        const response = await axios.get(`http://springbootmockstockaws-env.eba-m9mpenp5.us-west-1.elasticbeanstalk.com/quotes/${stockSymbol}`, {
+            headers: { Authorization: `Bearer ${token}` }});
         return response.data.price;
     }
 
@@ -63,9 +67,9 @@ function PortfolioPage({ userId }) {
             </div>
             <div>
                 <h2 className="section-header"> My Portfolio </h2>
-                <PortfolioTable portfolio={portfolio} userId={userId} stockPrice={stockPrice} fetchPortfolio={fetchPortfolio} />
+                <PortfolioTable portfolio={portfolio} stockPrice={stockPrice} fetchPortfolio={fetchPortfolio} />
                 <h2 className="section-header"> Marketplace</h2>
-                <Marketplace Marketplace={Marketplace} fetchPortfolio={fetchPortfolio} portfolio={portfolio} userId={userId} />
+                <Marketplace Marketplace={Marketplace} fetchPortfolio={fetchPortfolio} portfolio={portfolio} />
             </div>
         </div>
     )
