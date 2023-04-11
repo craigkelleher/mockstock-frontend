@@ -17,12 +17,11 @@ const Login = () => {
                     </div>
                     <div className="form-module">
                         {/* <label htmlFor="password">Password:</label> */}
-                        <input type="password" placeholder="Password" id="password" requred />
+                        <input type="password" placeholder="Password" id="password" required />
                     </div>
                     <button type="submit">Login</button>
                 </form>
             </div>
-            <Footer/>
         </div>
     )
 }

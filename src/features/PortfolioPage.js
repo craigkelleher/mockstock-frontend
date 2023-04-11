@@ -1,20 +1,76 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import PortfolioTable from './PortfolioTable';
+import Marketplace from "../Components/Marketplace";
 import '../PortfolioPage.css';
+import axios from "axios";
+import helpers from '../helpers';
 
-function PortfolioPage() {
-    const portfolio = [
-        { symbol: 'AAPL', numberOfShares: 10, amountInvested: 1500},
-        { symbol: 'MSFT', numberOfShares: 5, amountInvested: 2500},
-        { symbol: 'TSLA', numberOfShares: 50, amountInvested: 20000}
-    ];
+function PortfolioPage({ userId }) {
+  const [user, setUser] = useState({});
+  const [portfolio, setPortfolio] = useState([]);
+  const [investmentValue, setInvestmentValue] = useState(0.00);
+  const [totalProfitLoss, setTotalProfitLoss] = useState(0.00);
+  const [stockPrice, setStockPrice] = useState({});
+
+  useEffect(() => {
+    fetchPortfolio();
+  }, [])
+
+    function fetchUser() {
+        axios.get(`http://springbootmockstockaws-env.eba-m9mpenp5.us-west-1.elasticbeanstalk.com/api/user/${userId}`)
+            .then((response) => {
+                response.data.balance = helpers.formatNumber(response.data.balance);
+                setUser(response.data);
+            })
+    }
+
+    function fetchPortfolio() {
+        fetchUser();
+        axios.get(`http://springbootmockstockaws-env.eba-m9mpenp5.us-west-1.elasticbeanstalk.com/api/user/${userId}/portfolio`)
+        .then(async (response) => {
+        let investmentSum = 0.00;
+        let profitLossSum = 0.00;
+        for (let stock of response.data) {
+            const fetchedStockPrice = await getStockPrice(stock.stockSymbol);
+            
+            investmentSum += fetchedStockPrice * stock.quantity;
+            profitLossSum += stock.profitLoss;
+
+            setStockPrice(prevState => ({
+                ...prevState,
+                [stock.stockSymbol]: fetchedStockPrice
+            }));
+        }
+        investmentSum = helpers.formatNumber(investmentSum);
+        setPortfolio(response.data);
+        setInvestmentValue(investmentSum);
+        setTotalProfitLoss(profitLossSum);
+    })
+    }
+
+    async function getStockPrice(stockSymbol) {
+        const response = await axios.get(`http://springbootmockstockaws-env.eba-m9mpenp5.us-west-1.elasticbeanstalk.com/quotes/${stockSymbol}`);
+        return response.data.price;
+    }
 
     return (
         <div>
-            <PortfolioTable portfolio={portfolio} />
-            <h2> My Portfolio </h2>
+            <div className="user-info">
+                <p>{`${user.name}'s Portfolio`}</p>
+                <p>{`Cash: $${user.balance}`}</p>
+                <p>{`Profit/Loss: $${totalProfitLoss}`}</p>
+                <p>{`Investment Value: $${investmentValue}`}</p>
+            </div>
+            <div>
+                <h2 className="section-header"> My Portfolio </h2>
+                <PortfolioTable portfolio={portfolio} userId={userId} stockPrice={stockPrice} fetchPortfolio={fetchPortfolio} />
+                <h2 className="section-header"> Marketplace</h2>
+                <Marketplace Marketplace={Marketplace} fetchPortfolio={fetchPortfolio} portfolio={portfolio} userId={userId} />
+            </div>
         </div>
     )
 }
 
 export default PortfolioPage;
+
+

@@ -1,9 +1,8 @@
 import './App.css'
 import { Route, Routes } from 'react-router-dom'
 import { useEffect } from 'react'
-import Home from './Components/Home'
 import Navbar from './Components/Navbar'
-import About from './Components/About'
+import Transactions from './Components/Transactions'
 import EditModal from './Components/EditModal'
 import { useDispatch, useSelector } from 'react-redux'
 import { setRecordsToDisplay } from './features/recordsToDisplay'
@@ -31,6 +30,10 @@ const App = () => {
   const msgText = useSelector(state => state.msgText.value)
   const showNewRecordModal = useSelector(state => state.showNewRecordModal.value)
 
+  // TEST ID
+  const userId = 32;
+
+
   useEffect(() => {
     updateRecordsDisplay();
   }, [startIndex, endIndex, allRecords])
@@ -46,10 +49,10 @@ const App = () => {
       {showModal && <EditModal />}
       {showNewRecordModal && <NewRecordModal />}
       <Routes>
-        <Route path='/' element={<Home />} />
+        <Route path='/' element={<Login />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/portfolio" element={<PortfolioPage />} />
-        <Route path='/about' element={<About />} />
+        <Route path="/portfolio" element={<PortfolioPage userId={userId} />} />
+        <Route path='/transactions' element={<Transactions userId={userId} />} />
       </Routes>
       <Footer/>
     </div>
