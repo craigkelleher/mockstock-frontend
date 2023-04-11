@@ -38,7 +38,10 @@ console.log(isLoggedIn)
 
           </>
         ) : (
+          <>
           <Link className='navLink' id="/login" to="/login">Login</Link>
+          <Link className='navLink' id="/signup" to="/signup">Signup</Link>
+          </>
         )}
       </div>
 

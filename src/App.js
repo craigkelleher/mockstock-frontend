@@ -10,6 +10,7 @@ import NewRecordModal from './Components/NewRecordModal'
 import Footer from './features/Footer'
 import Login from './features/Login'
 import PortfolioPage from './features/PortfolioPage'
+import SignUpPage from './features/signup'
 
 export const URL = {
   "LIST_NAME": "recordList",
@@ -55,6 +56,7 @@ const App = () => {
       <Routes>
       <Route path='/' element={<Login onAuthentication={handleAuthentication} />} />
         <Route path="/login" element={<Login onAuthentication={handleAuthentication} />} />
+        <Route path="/signup" element={<SignUpPage />} />
         <Route path="/portfolio" element={<PortfolioPage />} />
         <Route path='/transactions' element={<Transactions />} />
       </Routes>
