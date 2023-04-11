@@ -9,43 +9,43 @@ function PortfolioTable({ portfolio, stockPrice, fetchPortfolio }) {
     function handleBuyShares(stockSymbol) {
         const shares = sharesToBuyOrSell[stockSymbol] ?? 0; // set shares to 0 if undefined or null
         if (window.confirm(`Do you really want to purchase ${shares} shares of ${stockSymbol}?`)) {
-            const transaction = {
-                stockSymbol: stockSymbol,
-                transactionType: "buy",
-                quantity: shares
-            };
-            axios.post(`http://springbootmockstockaws-env.eba-m9mpenp5.us-west-1.elasticbeanstalk.com/api/user/transactions`, { headers: {
-                Authorization: `Bearer ${token}`
-            } }, transaction)
-                .then(() => {
-                    fetchPortfolio();
-                    handleShareChange(null, stockSymbol);
-                });
+          const transaction = {
+            stockSymbol: stockSymbol,
+            transactionType: "buy",
+            quantity: shares
+          };
+          axios.post(`http://springbootmockstockaws-env.eba-m9mpenp5.us-west-1.elasticbeanstalk.com/api/user/transactions`, transaction, { headers: {
+            Authorization: `Bearer ${token}`
+          } })
+            .then(() => {
+              fetchPortfolio();
+              handleShareChange(null, stockSymbol);
+            });
         }
-    };
+      };
 
     function handleSellShares(stockSymbol) {
         const stock = portfolio.find(stock => stock.stockSymbol === stockSymbol);
         const shares = sharesToBuyOrSell[stockSymbol] ?? 0;
         if(stock.quantity === 0){
-            handleRemoveClick(stockSymbol);
+          handleRemoveClick(stockSymbol);
         }
         else if(window.confirm(`Do you really want to sell ${sharesToBuyOrSell[stockSymbol]} shares of ${stockSymbol}?`)) {
-            const transaction = {
-                stockSymbol: stockSymbol,
-                transactionType: "sell",
-                quantity: sharesToBuyOrSell[stockSymbol]
-            };
-
-            axios.post(`http://springbootmockstockaws-env.eba-m9mpenp5.us-west-1.elasticbeanstalk.com/api/user/transactions`, { headers: {
-                Authorization: `Bearer ${token}`
-            } }, transaction)
-                .then(() => {
-                    fetchPortfolio();
-                    handleShareChange(null, stockSymbol)
-                });
-            }
-    };
+          const transaction = {
+            stockSymbol: stockSymbol,
+            transactionType: "sell",
+            quantity: sharesToBuyOrSell[stockSymbol]
+          };
+      
+          axios.post(`http://springbootmockstockaws-env.eba-m9mpenp5.us-west-1.elasticbeanstalk.com/api/user/transactions`, transaction, { headers: {
+            Authorization: `Bearer ${token}`
+          } })
+            .then(() => {
+              fetchPortfolio();
+              handleShareChange(null, stockSymbol)
+            });
+        }
+      };
 
     function handleShareChange(value, stockSymbol) {
         setSharesToBuyOrSell(prevState => ({

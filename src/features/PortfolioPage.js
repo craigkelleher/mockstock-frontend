@@ -53,7 +53,9 @@ function PortfolioPage() {
 
     async function getStockPrice(stockSymbol) {
         const response = await axios.get(`http://springbootmockstockaws-env.eba-m9mpenp5.us-west-1.elasticbeanstalk.com/quotes/${stockSymbol}`, {
-            headers: { Authorization: `Bearer ${token}` }});
+            headers: { Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+            Accept: "application/json" }});
         return response.data.price;
     }
 
