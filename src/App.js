@@ -1,6 +1,6 @@
 import './App.css'
 import { Route, Routes } from 'react-router-dom'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import Navbar from './Components/Navbar'
 import Transactions from './Components/Transactions'
 import EditModal from './Components/EditModal'
@@ -29,10 +29,14 @@ const App = () => {
   const showMsg = useSelector(state => state.showMsg.value)
   const msgText = useSelector(state => state.msgText.value)
   const showNewRecordModal = useSelector(state => state.showNewRecordModal.value)
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  // TEST ID
-  const userId = 32;
-
+  function handleAuthentication(status) {
+    setIsLoggedIn(status);
+  }
+  function handleLogout(status) {
+    setIsLoggedIn(status);
+  }
 
   useEffect(() => {
     updateRecordsDisplay();
@@ -44,15 +48,15 @@ const App = () => {
 
   return (
     <div className="appContainer">
-      <Navbar />
+    <Navbar isLoggedIn={isLoggedIn}  onLogout={handleLogout} />
       {showMsg && <div className='updateMsgContainer'><h3>{msgText}</h3></div>}
       {showModal && <EditModal />}
       {showNewRecordModal && <NewRecordModal />}
       <Routes>
-        <Route path='/' element={<Login />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/portfolio" element={<PortfolioPage userId={userId} />} />
-        <Route path='/transactions' element={<Transactions userId={userId} />} />
+      <Route path='/' element={<Login onAuthentication={handleAuthentication} />} />
+        <Route path="/login" element={<Login onAuthentication={handleAuthentication} />} />
+        <Route path="/portfolio" element={<PortfolioPage />} />
+        <Route path='/transactions' element={<Transactions />} />
       </Routes>
       <Footer/>
     </div>
