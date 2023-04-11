@@ -14,8 +14,24 @@
     background-color: #ffffff;
     margin-bottom: 5rem;
   }
+  .login-signup {
+    width: 275px;
+    height: 203px;
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #ffffff;
+    margin-bottom: 5rem;
+  }
 
   .login-module h2{
+    margin-top: 0;
+    font-size: 1.5rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color:#214460;
+  }
+  .login-signup h2{
     margin-top: 0;
     font-size: 1.5rem;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;

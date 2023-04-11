@@ -3,12 +3,14 @@ import usaaLogo from "../Assets/usaa1.jpg";
 import Footer from "./Footer";
 import "../Login.css";
 import axios from "axios";
+import { useNavigate } from 'react-router-dom';
 
 
-const Login = () => {
+
+const Login = ({ onAuthentication }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
+  const navigate = useNavigate();
   const handleLogin = (event) => {
 
     event.preventDefault();
@@ -29,9 +31,11 @@ const Login = () => {
       .then((response) => {
         const token = response.data.token;
         localStorage.setItem("token", token);
+        onAuthentication(true)
         setUsername("");
         setPassword("");
-        window.location.replace("http://localhost:3000/portfolio");
+        // window.location.replace("http://localhost:3000/portfolio");
+        navigate('/portfolio')
       })
       .catch((error) => {
         console.log(error);
