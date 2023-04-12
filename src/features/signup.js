@@ -50,7 +50,7 @@ function SignUpPage() {
 				<form onSubmit={handleSubmit}>
 				<div className="form-module">
 					<input type="text" placeholder="First Name" id="firstName"
-					onChange={(e) => setfirstName(e.target.value)}required/>
+					onChange={(e) => setfirstName(e.target.value)}required autoFocus/>
 				</div>
 				<div className="form-module">
 					<input type="lastName" placeholder="Last Name" id="lastName"

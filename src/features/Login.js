@@ -49,7 +49,7 @@ const Login = ({ onAuthentication }) => {
 				<form onSubmit={handleLogin}>
 				<div className="form-module">
 					<input type="text" placeholder="Username" id="email" 
-					onChange={(e) => setUsername(e.target.value)}required/>
+					onChange={(e) => setUsername(e.target.value)}required autoFocus/>
 				</div>
 				<div className="form-module">
 					<input type="password" placeholder="Password" id="password"
