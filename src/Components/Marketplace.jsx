@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import PortfolioTable from "../features/PortfolioTable";
 import helpers from '../helpers';
 
 
@@ -8,7 +7,6 @@ function Marketplace({ fetchPortfolio, portfolio }) {
     const [marketplace, setMarketplace] = useState([]);
     const [isAddingPortfolioEntry, setIsAddingPortfolioEntry] = useState(false);
     const token = localStorage.getItem('token');
-
 
     useEffect(() => {
         fetchMarketplace();
@@ -88,7 +86,6 @@ function Marketplace({ fetchPortfolio, portfolio }) {
                             <p>+</p>
                         </td>
                     </tr>
-
                 ))}
             </tbody>
         </table>

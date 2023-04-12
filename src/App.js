@@ -1,6 +1,6 @@
 import './App.css'
 import { Route, Routes } from 'react-router-dom'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import Navbar from './Components/Navbar'
 import Transactions from './Components/Transactions'
 import Footer from './features/Footer'
@@ -9,27 +9,27 @@ import PortfolioPage from './features/PortfolioPage'
 import SignUpPage from './features/signup'
 
 const App = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  function handleAuthentication(status) {
+function handleAuthentication(status) {
     setIsLoggedIn(status);
-  }
-  function handleLogout(status) {
+}
+function handleLogout(status) {
     setIsLoggedIn(status);
-  }
+}
 
-  return (
+return (
     <div className="appContainer">
-    <Navbar isLoggedIn={isLoggedIn}  onLogout={handleLogout} />
-      <Routes>
-      <Route path='/' element={<Login onAuthentication={handleAuthentication} />} />
-        <Route path="/login" element={<Login onAuthentication={handleAuthentication} />} />
-        <Route path="/signup" element={<SignUpPage />} />
-        <Route path="/portfolio" element={<PortfolioPage />} />
-        <Route path='/transactions' element={<Transactions />} />
-      </Routes>
-      <Footer/>
+        <Navbar isLoggedIn={isLoggedIn}  onLogout={handleLogout} />
+        <Routes>
+        <Route path='/' element={<Login onAuthentication={handleAuthentication} />} />
+            <Route path="/login" element={<Login onAuthentication={handleAuthentication} />} />
+            <Route path="/signup" element={<SignUpPage />} />
+            <Route path="/portfolio" element={<PortfolioPage />} />
+            <Route path='/transactions' element={<Transactions />} />
+        </Routes>
+        <Footer/>
     </div>
-  );
+);
 }
 export default App;
