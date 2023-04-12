@@ -30,7 +30,6 @@ function Transactions({ userId }){
                     </tr>
                 </thead>
                 <tbody>
-                    
                     {transactions.map(transactions => (
                         <tr>
                             <td>{transactions.date}</td>

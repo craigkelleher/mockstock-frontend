@@ -31,24 +31,22 @@ function PortfolioPage() {
         axios.get(`http://springbootmockstockaws-env.eba-m9mpenp5.us-west-1.elasticbeanstalk.com/api/user/portfolio`, {
             headers: { Authorization: `Bearer ${token}` }})
         .then(async (response) => {
-        let investmentSum = 0.00;
-        let profitLossSum = 0.00;
-        for (let stock of response.data) {
-            const fetchedStockPrice = await getStockPrice(stock.stockSymbol);
-            
-            investmentSum += fetchedStockPrice * stock.quantity;
-            profitLossSum += stock.profitLoss;
-
-            setStockPrice(prevState => ({
-                ...prevState,
-                [stock.stockSymbol]: fetchedStockPrice
-            }));
-        }
-        investmentSum = helpers.formatNumber(investmentSum);
-        setPortfolio(response.data);
-        setInvestmentValue(investmentSum);
-        setTotalProfitLoss(profitLossSum);
-    })
+            let investmentSum = 0.00;
+            let profitLossSum = 0.00;
+            for (let stock of response.data) {
+                const fetchedStockPrice = await getStockPrice(stock.stockSymbol);
+                investmentSum += fetchedStockPrice * stock.quantity;
+                profitLossSum += stock.profitLoss;
+                setStockPrice(prevState => ({
+                    ...prevState,
+                    [stock.stockSymbol]: fetchedStockPrice
+                }));
+            }
+            investmentSum = helpers.formatNumber(investmentSum);
+            setPortfolio(response.data);
+            setInvestmentValue(investmentSum);
+            setTotalProfitLoss(profitLossSum);
+        })
     }
 
     async function getStockPrice(stockSymbol) {

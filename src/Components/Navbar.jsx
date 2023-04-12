@@ -26,16 +26,17 @@ const Navbar = ({ isLoggedIn, onLogout }) => {
 			</div>
 			<div className='linksContainer'>
 				{isLoggedIn ? (
-				<div>
+				<>
 					<Link className='navLink' id="/portfolio" to="/portfolio">Portfolio</Link>
 					<Link className='navLink' id="/Transactions" to="/Transactions">Transactions</Link>
 					<div className="navLink" id="/logout" onClick={() => {
 						onLogout();
 						localStorage.clear();
-						navigate("/"); 
+						navigate("/");
 					}}
-					style={{ cursor: "pointer" }} > Logout </div>
-				</div>
+					style={{ cursor: "pointer" }}> Logout </div>
+
+				</>
 				) : (
 				<>
 					<Link className='navLink' id="/login" to="/login">Login</Link>
@@ -43,6 +44,7 @@ const Navbar = ({ isLoggedIn, onLogout }) => {
 				</>
 				)}
 			</div>
+
 		</div>
 	)
 }

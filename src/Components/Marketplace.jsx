@@ -4,12 +4,9 @@ import helpers from '../helpers';
 
 function fetchMarketplace(token) {
     console.log("pew");
-    return axios.get(`http://springbootmockstockaws-env.eba-m9mpenp5.us-west-1.elasticbeanstalk.com/quotes`, { headers : {
-        Authorization: `Bearer ${token}`
-    },
-        params: {
-            symbols: `ATVI,AMD,GOOG,AMZN,AAPL`
-        }
+    return axios.get(`http://springbootmockstockaws-env.eba-m9mpenp5.us-west-1.elasticbeanstalk.com/quotes`, { 
+        headers : {Authorization: `Bearer ${token}`},
+        params: {symbols: `ATVI,AMD,GOOG,AMZN,AAPL`}
     })
     .then((response) => {
         console.log("pewpew");
