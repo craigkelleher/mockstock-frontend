@@ -3,7 +3,6 @@ import axios from "axios";
 import helpers from '../features/helpers';
 
 function fetchMarketplace(token) {
-    console.log("pew");
     return axios.get(`http://springbootmockstockaws-env.eba-m9mpenp5.us-west-1.elasticbeanstalk.com/quotes`, { 
         headers : {Authorization: `Bearer ${token}`},
         params: {symbols: `ATVI,AMD,GOOG,AMZN,AAPL`}
@@ -48,11 +47,9 @@ function Marketplace({ fetchPortfolio, portfolio }) {
             headers : {Authorization: `Bearer ${token}`}})
         .then(() => {
             fetchPortfolio();
-            // fetchMarketplace();
             setTimeout(() => {
                 setIsAddingPortfolioEntry(false);
             }, 2000);
-            console.log("pewpewMcPewFace");
         })
         .catch(error => {
             console.error(error);
