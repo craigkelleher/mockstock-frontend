@@ -1,31 +1,29 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import helpers from '../helpers';
 
+function fetchMarketplace(token) {
+    console.log("pew");
+    return axios.get(`http://springbootmockstockaws-env.eba-m9mpenp5.us-west-1.elasticbeanstalk.com/quotes`, { headers : {
+        Authorization: `Bearer ${token}`
+    },
+        params: {
+            symbols: `ATVI,AMD,GOOG,AMZN,AAPL`
+        }
+    })
+    .then((response) => {
+        console.log("pewpew");
+        return response.data;
+    });
+}
 
 function Marketplace({ fetchPortfolio, portfolio }) {
     const [marketplace, setMarketplace] = useState([]);
     const [isAddingPortfolioEntry, setIsAddingPortfolioEntry] = useState(false);
+    const [hasFetchedData, setHasFetchedData] = useState(false);
     const token = localStorage.getItem('token');
 
-    useEffect(() => {
-        fetchMarketplace();
-    }, []);
-    
-    function fetchMarketplace() {
-        axios.get(`http://springbootmockstockaws-env.eba-m9mpenp5.us-west-1.elasticbeanstalk.com/quotes`, { headers : {
-            Authorization: `Bearer ${token}`
-        },
-            params: {
-                symbols: `ATVI,AMD,GOOG,AMZN,AAPL`
-            }
-        })
-            .then((response) => {
-                setMarketplace(response.data);
-            })
-    }
-
-    function handleClick(stock) {
+    const handleClick = useCallback((stock) => {
         console.log(stock);
         if (isAddingPortfolioEntry){
             return;
@@ -51,19 +49,31 @@ function Marketplace({ fetchPortfolio, portfolio }) {
 
         axios.post(`http://springbootmockstockaws-env.eba-m9mpenp5.us-west-1.elasticbeanstalk.com/api/user/portfolio`, portfolioEntry, { headers : {
             Authorization: `Bearer ${token}`}})
-        
             .then(() => {
                 fetchPortfolio();
-                fetchMarketplace();
+                // fetchMarketplace();
                 setTimeout(() => {
                     setIsAddingPortfolioEntry(false);
                 }, 2000);
+                console.log("pewpewMcPewFace");
             })
             .catch(error => {
                 console.error(error);
                 setIsAddingPortfolioEntry(false);
             });
-    }
+    }, [fetchPortfolio, isAddingPortfolioEntry, portfolio, token]);
+
+    useEffect(() => {
+        console.log("pewpewpew");
+        if (!hasFetchedData) {
+            fetchMarketplace(token).then(data => {
+                setMarketplace(data);
+                setHasFetchedData(true);
+            });
+        }
+    }, [hasFetchedData, token]);
+
+    console.log('Marketplace component rendered');
 
     return (
         <table>
