@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import usaaLogo from "../Assets/usaa1.jpg";
+import React, { useState, useEffect } from "react";
+import usaaLogo from "../Assets/usaa2.png";
 import Footer from "./Footer";
 import "../css/Login.css";
 import axios from 'axios'; 
@@ -11,6 +11,13 @@ function SignUpPage() {
 	const [lastName, setlastName] = useState("");
 	const [password, setPassword] = useState("");
 	const navigate = useNavigate();
+
+	useEffect(() => {
+		document.body.classList.add("login-page");
+		return () => {
+			document.body.classList.remove("login-page");
+		};
+	}, []);
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
@@ -43,7 +50,7 @@ function SignUpPage() {
 				<form onSubmit={handleSubmit}>
 				<div className="form-module">
 					<input type="text" placeholder="First Name" id="firstName"
-					onChange={(e) => setfirstName(e.target.value)}required/>
+					onChange={(e) => setfirstName(e.target.value)}required autoFocus/>
 				</div>
 				<div className="form-module">
 					<input type="lastName" placeholder="Last Name" id="lastName"
