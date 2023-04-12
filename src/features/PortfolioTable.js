@@ -92,7 +92,7 @@ function PortfolioTable({ portfolio, stockPrice, fetchPortfolio }) {
 						<td className="stock-name">{stock.name}</td>
 						<td>${helpers.formatNumber(stockPrice[stock.stockSymbol])}</td>
 						<td>{stock.quantity}</td>
-						<td>${stock.profitLoss}</td>
+						<td>${helpers.formatNumber(stock.profitLoss)}</td>
 						<td>${helpers.formatNumber(stockPrice[stock.stockSymbol] * stock.quantity)}</td>
 						<td className="button-mimic" onClick={() => handleBuyShares(stock.stockSymbol)}>Buy
 						</td>

@@ -61,7 +61,7 @@ function PortfolioPage() {
             <div className="user-info">
                 <p>{`${user.firstName}'s Portfolio`}</p>
                 <p>{`Cash: $${user.balance}`}</p>
-                <p>{`Profit/Loss: $${totalProfitLoss}`}</p>
+                <p>{`Profit/Loss: $${helpers.formatNumber(totalProfitLoss)}`}</p>
                 <p>{`Investment Value: $${investmentValue}`}</p>
             </div>
             <div>
