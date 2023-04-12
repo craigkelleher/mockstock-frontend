@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
-import '../PortfolioPage.css';
+import '../css/PortfolioPage.css';
 import axios from "axios";
-import helpers from '../helpers';
+import helpers from './helpers';
 
 function PortfolioTable({ portfolio, stockPrice, fetchPortfolio }) {
     const [sharesToBuyOrSell, setSharesToBuyOrSell] = useState({});
@@ -9,43 +9,42 @@ function PortfolioTable({ portfolio, stockPrice, fetchPortfolio }) {
     function handleBuyShares(stockSymbol) {
         const shares = sharesToBuyOrSell[stockSymbol] ?? 0; // set shares to 0 if undefined or null
         if (window.confirm(`Do you really want to purchase ${shares} shares of ${stockSymbol}?`)) {
-          const transaction = {
-            stockSymbol: stockSymbol,
-            transactionType: "buy",
-            quantity: shares
-          };
-          axios.post(`http://springbootmockstockaws-env.eba-m9mpenp5.us-west-1.elasticbeanstalk.com/api/user/transactions`, transaction, { headers: {
-            Authorization: `Bearer ${token}`
-          } })
+			const transaction = {
+				stockSymbol: stockSymbol,
+				transactionType: "buy",
+				quantity: shares
+			};
+          	axios.post(`http://springbootmockstockaws-env.eba-m9mpenp5.us-west-1.elasticbeanstalk.com/api/user/transactions`, transaction, { 
+				headers: {Authorization: `Bearer ${token}`} 
+			})
             .then(() => {
-              fetchPortfolio();
-              handleShareChange(null, stockSymbol);
+				fetchPortfolio();
+				handleShareChange(null, stockSymbol);
             });
         }
-      };
+    };
 
     function handleSellShares(stockSymbol) {
         const stock = portfolio.find(stock => stock.stockSymbol === stockSymbol);
         const shares = sharesToBuyOrSell[stockSymbol] ?? 0;
         if(stock.quantity === 0){
-          handleRemoveClick(stockSymbol);
+          	handleRemoveClick(stockSymbol);
         }
         else if(window.confirm(`Do you really want to sell ${sharesToBuyOrSell[stockSymbol]} shares of ${stockSymbol}?`)) {
-          const transaction = {
-            stockSymbol: stockSymbol,
-            transactionType: "sell",
-            quantity: sharesToBuyOrSell[stockSymbol]
-          };
-      
-          axios.post(`http://springbootmockstockaws-env.eba-m9mpenp5.us-west-1.elasticbeanstalk.com/api/user/transactions`, transaction, { headers: {
-            Authorization: `Bearer ${token}`
-          } })
+          	const transaction = {
+				stockSymbol: stockSymbol,
+				transactionType: "sell",
+				quantity: sharesToBuyOrSell[stockSymbol]
+          	};
+          	axios.post(`http://springbootmockstockaws-env.eba-m9mpenp5.us-west-1.elasticbeanstalk.com/api/user/transactions`, transaction, { 
+				headers: {Authorization: `Bearer ${token}`} 
+			})
             .then(() => {
-              fetchPortfolio();
-              handleShareChange(null, stockSymbol)
+              	fetchPortfolio();
+              	handleShareChange(null, stockSymbol)
             });
         }
-      };
+    };
 
     function handleShareChange(value, stockSymbol) {
         setSharesToBuyOrSell(prevState => ({
@@ -56,11 +55,12 @@ function PortfolioTable({ portfolio, stockPrice, fetchPortfolio }) {
 
     function handleRemoveClick(stockSymbol){
         if(window.confirm(`Do you really want to remove ${stockSymbol} from your portfolio?`)){
-            axios.delete(`http://springbootmockstockaws-env.eba-m9mpenp5.us-west-1.elasticbeanstalk.com/api/user/portfolio/${stockSymbol}`, { headers: {
-                Authorization: `Bearer ${token}` }})
-                .then(() => {
-                    fetchPortfolio();
-                })
+            axios.delete(`http://springbootmockstockaws-env.eba-m9mpenp5.us-west-1.elasticbeanstalk.com/api/user/portfolio/${stockSymbol}`, { 
+				headers: {Authorization: `Bearer ${token}`}
+			})
+            .then(() => {
+                fetchPortfolio();
+            })
         }
     }
 
@@ -83,32 +83,29 @@ function PortfolioTable({ portfolio, stockPrice, fetchPortfolio }) {
             {portfolio.map(stock => {
                 const sellButton = stock.quantity === 0 ? (
                     <td className="button-mimic" onClick={() => handleRemoveClick(stock.stockSymbol)}>⊘</td>
-                  ) : (
-                    <td className="button-mimic" onClick={() => handleSellShares(stock.stockSymbol)}>
-                      Sell
-                    </td>
-                  );
+                ) : (
+                    <td className="button-mimic" onClick={() => handleSellShares(stock.stockSymbol)}>Sell</td>
+                );
                 return (
-            <tr key={stock.stockSymbol}>
-              <td className="stockSymbol-name">{stock.stockSymbol}</td>
-              <td className="stock-name">{stock.name}</td>
-              <td>${helpers.formatNumber(stockPrice[stock.stockSymbol])}</td>
-              <td>{stock.quantity}</td>
-              <td>${stock.profitLoss}</td>
-              <td>${helpers.formatNumber(stockPrice[stock.stockSymbol] * stock.quantity)}</td>
-              <td className="button-mimic" onClick={() => handleBuyShares(stock.stockSymbol)}>
-                Buy
-              </td>
-              <td className="input-cell">
-                <input
-                  type="number"
-                  min="0"
-                  value={sharesToBuyOrSell[stock.stockSymbol] === null ? "" : sharesToBuyOrSell[stock.stockSymbol]}
-                  onChange={(event) => handleShareChange(event.target.value, stock.stockSymbol)}
-                />
-              </td>
-              {sellButton}
-            </tr>
+					<tr key={stock.stockSymbol}>
+						<td className="stockSymbol-name">{stock.stockSymbol}</td>
+						<td className="stock-name">{stock.name}</td>
+						<td>${helpers.formatNumber(stockPrice[stock.stockSymbol])}</td>
+						<td>{stock.quantity}</td>
+						<td>${stock.profitLoss}</td>
+						<td>${helpers.formatNumber(stockPrice[stock.stockSymbol] * stock.quantity)}</td>
+						<td className="button-mimic" onClick={() => handleBuyShares(stock.stockSymbol)}>Buy
+						</td>
+						<td className="input-cell">
+							<input
+							type="number"
+							min="0"
+							value={sharesToBuyOrSell[stock.stockSymbol] === null ? "" : sharesToBuyOrSell[stock.stockSymbol]}
+							onChange={(event) => handleShareChange(event.target.value, stock.stockSymbol)}
+							/>
+						</td>
+						{sellButton}
+					</tr>
                 )}
             )}
         </tbody>
