@@ -65,9 +65,7 @@ function Marketplace({ fetchPortfolio, portfolio }) {
                 setHasFetchedData(true);
             });
         }
-    }, [hasFetchedData, token]);
-
-    console.log('Marketplace component rendered');
+    }, []);
 
     return (
         <table>
