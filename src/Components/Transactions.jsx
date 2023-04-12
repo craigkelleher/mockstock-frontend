@@ -3,8 +3,6 @@ import axios from "axios";
 import helpers from '../helpers';
 
 function Transactions({ userId }){
-    //TODO grab some stuff from the API and update transactions
-    // const [transactions, setTransactions] = useState([]);
     const [transactions, setTransactions] = useState([]);
     const token = localStorage.getItem('token')
     useEffect(() => {
@@ -18,7 +16,7 @@ function Transactions({ userId }){
     }, []);
 
     return (
-        <>
+        <div>
             <h2 className="section-header"> Transaction Log  </h2>
             <table>
                 <thead>
@@ -45,7 +43,7 @@ function Transactions({ userId }){
                     ))}
                 </tbody>
             </table>
-        </>
+        </div>
     )
 }
 
