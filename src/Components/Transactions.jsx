@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
-import helpers from '../helpers';
+import helpers from '../features/helpers';
 
 function Transactions({ userId }){
     const [transactions, setTransactions] = useState([]);

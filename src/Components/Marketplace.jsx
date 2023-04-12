@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
-import helpers from '../helpers';
+import helpers from '../features/helpers';
 
 function fetchMarketplace(token) {
     console.log("pew");

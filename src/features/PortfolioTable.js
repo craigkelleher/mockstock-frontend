@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
-import '../PortfolioPage.css';
+import '../css/PortfolioPage.css';
 import axios from "axios";
-import helpers from '../helpers';
+import helpers from './helpers';
 
 function PortfolioTable({ portfolio, stockPrice, fetchPortfolio }) {
     const [sharesToBuyOrSell, setSharesToBuyOrSell] = useState({});

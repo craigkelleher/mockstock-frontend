@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from "react";
 import PortfolioTable from './PortfolioTable';
 import Marketplace from "../Components/Marketplace";
-import '../PortfolioPage.css';
+import '../css/PortfolioPage.css';
 import axios from "axios";
-import helpers from '../helpers';
+import helpers from './helpers';
 
 function PortfolioPage() {
     const [user, setUser] = useState({});
