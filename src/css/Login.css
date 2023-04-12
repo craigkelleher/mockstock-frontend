@@ -59,9 +59,18 @@ img {
     margin: 50px auto 20px;
 }
 .loginLogo {
-  	transform: translate(.36rem);
+  	transform: translate(0.38rem);
 }
 body{
     background-color: #214460;
     background: #214460;
+}
+body.login-page {
+    background-color: #214460;
+    background: #214460;
+    background-image: url('/src/Assets/usaa-1922-1970.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    background-attachment: fixed;
 }

@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import usaaLogo from "../Assets/usaa1.jpg";
+import React, { useState, useEffect } from "react";
+import usaaLogo from "../Assets/usaa2.png";
 import Footer from "./Footer";
 import "../css/Login.css";
 import axios from "axios";
@@ -9,6 +9,13 @@ const Login = ({ onAuthentication }) => {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 	const navigate = useNavigate();
+
+	useEffect(() => {
+		document.body.classList.add("login-page");
+		return () => {
+			document.body.classList.remove("login-page");
+		};
+	}, []);
 
 	const handleLogin = (event) => {
 		event.preventDefault();
