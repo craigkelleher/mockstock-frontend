@@ -47,20 +47,20 @@ function Marketplace({ fetchPortfolio, portfolio }) {
             }
         }
 
-        axios.post(`http://springbootmockstockaws-env.eba-m9mpenp5.us-west-1.elasticbeanstalk.com/api/user/portfolio`, portfolioEntry, { headers : {
-            Authorization: `Bearer ${token}`}})
-            .then(() => {
-                fetchPortfolio();
-                // fetchMarketplace();
-                setTimeout(() => {
-                    setIsAddingPortfolioEntry(false);
-                }, 2000);
-                console.log("pewpewMcPewFace");
-            })
-            .catch(error => {
-                console.error(error);
+        axios.post(`http://springbootmockstockaws-env.eba-m9mpenp5.us-west-1.elasticbeanstalk.com/api/user/portfolio`, portfolioEntry, { 
+            headers : {Authorization: `Bearer ${token}`}})
+        .then(() => {
+            fetchPortfolio();
+            // fetchMarketplace();
+            setTimeout(() => {
                 setIsAddingPortfolioEntry(false);
-            });
+            }, 2000);
+            console.log("pewpewMcPewFace");
+        })
+        .catch(error => {
+            console.error(error);
+            setIsAddingPortfolioEntry(false);
+        });
     }, [fetchPortfolio, isAddingPortfolioEntry, portfolio, token]);
 
     useEffect(() => {

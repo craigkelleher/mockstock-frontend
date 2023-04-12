@@ -6,16 +6,16 @@ import axios from "axios";
 import helpers from '../helpers';
 
 function PortfolioPage() {
-  const [user, setUser] = useState({});
-  const [portfolio, setPortfolio] = useState([]);
-  const [investmentValue, setInvestmentValue] = useState(0.00);
-  const [totalProfitLoss, setTotalProfitLoss] = useState(0.00);
-  const [stockPrice, setStockPrice] = useState({});
-  const token = localStorage.getItem('token');
+    const [user, setUser] = useState({});
+    const [portfolio, setPortfolio] = useState([]);
+    const [investmentValue, setInvestmentValue] = useState(0.00);
+    const [totalProfitLoss, setTotalProfitLoss] = useState(0.00);
+    const [stockPrice, setStockPrice] = useState({});
+    const token = localStorage.getItem('token');
 
-  useEffect(() => {
-    fetchPortfolio();
-  }, [])
+    useEffect(() => {
+        fetchPortfolio();
+    }, [])
 
     function fetchUser() {
         axios.get(`http://springbootmockstockaws-env.eba-m9mpenp5.us-west-1.elasticbeanstalk.com/api/user`, {
@@ -53,9 +53,8 @@ function PortfolioPage() {
 
     async function getStockPrice(stockSymbol) {
         const response = await axios.get(`http://springbootmockstockaws-env.eba-m9mpenp5.us-west-1.elasticbeanstalk.com/quotes/${stockSymbol}`, {
-            headers: { Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-            Accept: "application/json" }});
+            headers: { Authorization: `Bearer ${token}`,"Content-Type": "application/json",Accept: "application/json" }
+        });
         return response.data.price;
     }
 
@@ -78,5 +77,3 @@ function PortfolioPage() {
 }
 
 export default PortfolioPage;
-
-

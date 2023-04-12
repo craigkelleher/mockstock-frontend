@@ -6,13 +6,13 @@ function Transactions({ userId }){
     const [transactions, setTransactions] = useState([]);
     const token = localStorage.getItem('token')
     useEffect(() => {
-        axios.get(`http://springbootmockstockaws-env.eba-m9mpenp5.us-west-1.elasticbeanstalk.com/api/user/transactions`, { headers: {
-            Authorization: `Bearer ${token}`
-          } })
-            .then((response) => {
-                response.data.reverse();
-                setTransactions(response.data)
-            })
+        axios.get(`http://springbootmockstockaws-env.eba-m9mpenp5.us-west-1.elasticbeanstalk.com/api/user/transactions`, { 
+            headers: {Authorization: `Bearer ${token}`
+        } })
+        .then((response) => {
+            response.data.reverse();
+            setTransactions(response.data)
+        })
     }, []);
 
     return (
