@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import usaaLogo from "../Assets/usaa2.png";
+import usaaLogo from "../Assets/usaa.png";
 import Footer from "./Footer";
 import "../css/Login.css";
 import axios from "axios";
