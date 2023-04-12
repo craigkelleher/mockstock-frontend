@@ -1,24 +1,22 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
-import helpers from '../helpers';
+import helpers from '../features/helpers';
 
 function Transactions({ userId }){
-    //TODO grab some stuff from the API and update transactions
-    // const [transactions, setTransactions] = useState([]);
     const [transactions, setTransactions] = useState([]);
     const token = localStorage.getItem('token')
     useEffect(() => {
-        axios.get(`http://springbootmockstockaws-env.eba-m9mpenp5.us-west-1.elasticbeanstalk.com/api/user/transactions`, { headers: {
-            Authorization: `Bearer ${token}`
-          } })
-            .then((response) => {
-                response.data.reverse();
-                setTransactions(response.data)
-            })
+        axios.get(`http://springbootmockstockaws-env.eba-m9mpenp5.us-west-1.elasticbeanstalk.com/api/user/transactions`, { 
+            headers: {Authorization: `Bearer ${token}`
+        } })
+        .then((response) => {
+            response.data.reverse();
+            setTransactions(response.data)
+        })
     }, []);
 
     return (
-        <>
+        <div>
             <h2 className="section-header"> Transaction Log  </h2>
             <table>
                 <thead>
@@ -32,7 +30,6 @@ function Transactions({ userId }){
                     </tr>
                 </thead>
                 <tbody>
-                    
                     {transactions.map(transactions => (
                         <tr>
                             <td>{transactions.date}</td>
@@ -45,7 +42,7 @@ function Transactions({ userId }){
                     ))}
                 </tbody>
             </table>
-        </>
+        </div>
     )
 }
 

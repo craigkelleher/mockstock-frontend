@@ -8,11 +8,9 @@ table {
     transform: translate(-50%);
     margin-bottom: 3rem;
 }
-
 table th {
     color: #ffffff;
 }
-
 table td {
     border-bottom: 1px solid #214460;
     border-top: 1px solid #214460;
@@ -20,11 +18,9 @@ table td {
     color: #c5c5c5;
     background-color: #0b2237;
 }
-
 table td button {
     margin-right: 5px;
 }
-
 .button-mimic {
     margin-right: 5px;
     height: 20px;
@@ -34,18 +30,15 @@ table td button {
     background-color: #123456;
     transition: 0.25s;
 } 
-
 .button-mimic:hover {
     background-color: #ffffff;
     color: #214460;
     cursor: pointer;
 }
-
 .symbol-name {
     align-items: center;
     font-weight: bold;
 }
-
 button {
     background-color: #214460;
     color: white;
@@ -56,13 +49,11 @@ button {
     border-radius: 3px;
     border: 1px solid #214460;
 }
-
 button:hover {
     background-color: #ffffff;
     color: #214460;
     border: 1px solid #214460;
 }
-
 input[type="number"] {
     border: 0px solid #ffffff;
     width: 100%;
@@ -71,11 +62,9 @@ input[type="number"] {
     background-color: #ccc;
     width: 5rem;
 }
-
 .input-cell{
     width: 5rem;
 }
-
 .section-header {
     color: #ffffff;
     margin-top: 1rem;
@@ -83,7 +72,6 @@ input[type="number"] {
     font-weight: 100;
     position: relative;
 }
-
 .section-header::after {
     content: "";
     position: absolute;
@@ -93,16 +81,13 @@ input[type="number"] {
     height: .1rem;
     background-image: linear-gradient(to right, #00ffff00, #00ffff00, #ffffff, #00ffff00, #00ffff00);
 }
-
 .portfolio-table {
     margin-top: 1rem;
     margin-bottom: 1rem;
 }
-
 .stock-name {
     text-align: -webkit-left;
 }
-
 .user-info {
     color: #ffffff;
     display: flex;

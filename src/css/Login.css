@@ -1,10 +1,9 @@
-  .container {
+.container {
     display: flex;
     flex-direction: column;
     align-items: center;
-  }
-  
-  .login-module {
+}
+.login-module {
     width: 275px;
     height: 160px;
     padding: 10px;
@@ -13,8 +12,8 @@
     border-radius: 5px;
     background-color: #ffffff;
     margin-bottom: 5rem;
-  }
-  .login-signup {
+}
+.login-signup {
     width: 275px;
     height: 203px;
     padding: 10px;
@@ -23,27 +22,24 @@
     border-radius: 5px;
     background-color: #ffffff;
     margin-bottom: 5rem;
-  }
-
-  .login-module h2{
+}
+.login-module h2{
     margin-top: 0;
     font-size: 1.5rem;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color:#214460;
-  }
-  .login-signup h2{
+}
+.login-signup h2{
     margin-top: 0;
     font-size: 1.5rem;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color:#214460;
-  }
-
-  .form-module{
+}
+.form-module{
     margin-bottom: 8px;
     margin-top: 5px;
-  }
-
-  button[type="submit"]{
+ }
+button[type="submit"]{
     background-color:#214460;   
     color: white;
     padding: 6px 15px;
@@ -51,25 +47,30 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     border: #214460;
     border-radius: 3px;
-  }
-
-  button[type="submit"]:hover{
+}
+button[type="submit"]:hover{
     background-color: #ffffff;
     color:#214460;
     border: 1px solid #214460;
-  }
-
+}
 img {
     display: block;
     max-width: 150px;
     margin: 50px auto 20px;
 }
-
 .loginLogo {
-  transform: translate(.36rem);
+  	transform: translate(0.38rem);
 }
-
 body{
     background-color: #214460;
     background: #214460;
+}
+body.login-page {
+    background-color: #214460;
+    background: #214460;
+    background-image: url('/src/Assets/usaa-1922-1970.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    background-attachment: fixed;
 }
