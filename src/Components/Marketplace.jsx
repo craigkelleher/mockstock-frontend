@@ -8,7 +8,6 @@ function fetchMarketplace(token) {
         params: {symbols: `ATVI,AMD,GOOG,AMZN,AAPL`}
     })
     .then((response) => {
-        console.log("pewpew");
         return response.data;
     });
 }
@@ -20,7 +19,6 @@ function Marketplace({ fetchPortfolio, portfolio }) {
     const token = localStorage.getItem('token');
 
     const handleClick = useCallback((stock) => {
-        console.log(stock);
         if (isAddingPortfolioEntry){
             return;
         }
@@ -58,16 +56,13 @@ function Marketplace({ fetchPortfolio, portfolio }) {
     }, [fetchPortfolio, isAddingPortfolioEntry, portfolio, token]);
 
     useEffect(() => {
-        console.log("pewpewpew");
         if (!hasFetchedData) {
             fetchMarketplace(token).then(data => {
                 setMarketplace(data);
                 setHasFetchedData(true);
             });
         }
-    }, [hasFetchedData, token]);
-
-    console.log('Marketplace component rendered');
+    }, []);
 
     return (
         <table>

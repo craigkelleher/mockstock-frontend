@@ -4,7 +4,6 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 const Navbar = ({ isLoggedIn, onLogout }) => {
 	const location = useLocation();
 	const navigate = useNavigate();
-	console.log(isLoggedIn)
 	useEffect(() => {
 		updateActiveTab()
 	}, [location, isLoggedIn])
