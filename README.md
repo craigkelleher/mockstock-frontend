@@ -12,6 +12,7 @@ https://bit.ly/vetfit-mockstock
 ## Available Scripts
 
 In the project directory, you can run:
+#### `npm install react-scripts`
 
 #### `npm start`
 
